@@ -1,0 +1,8 @@
+{
+    "GetPlayerTokenReq": 5,
+    "GetPlayerTokenRsp": 49,
+    "PingReq": 22,
+    "unk2": 1220,
+    "unk3": 2001,
+    "unk4": 2501
+}
