@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-message GetPlayerTokenRsp {
+message PlayerGetTokenCsRsp {
 	int32 retcode = 1;
 	string msg = 2;
 	uint32 uid = 3;

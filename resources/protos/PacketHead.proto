@@ -1,6 +1,5 @@
 syntax = "proto3";
 
-
 message PacketHead {
 	uint32 packet_id = 1;
 	uint32 rpc_id = 2;
