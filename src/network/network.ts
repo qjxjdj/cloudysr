@@ -100,7 +100,6 @@ export class NetworkManager{
             const { data, address } = this.recvQueue.shift()!;
             const handshake = HandshakePacket.decode(data);
             if(handshake instanceof Connect){
-                Logger.log("wow mihoyo really copy and pasted genshin handshake into hsr ahaha!")
                 Logger.log("Received connection from " + address.address + ":" + address.port);
                 this.clientManager.add(address, 0x96969696, 0x42424242);
                 this.send(new Establish(0x96969696, 0x42424242).encode(), address);
