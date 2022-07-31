@@ -13,7 +13,7 @@ export class Client {
 
     public key: Buffer | undefined;
 
-    constructor(readonly clientManager: ClientManager, readonly address: AddressInfo, readonly conv: number, readonly token: number){
+    constructor(readonly clientManager: ClientManager, readonly address: AddressInfo, readonly conv: number, readonly token: number) {
         this.kcp = new Kcp(conv, token, (buffer) => {
             buffer = cloneBuffer(buffer);
             clientManager.networkManager.send(buffer, address);
@@ -23,24 +23,24 @@ export class Client {
         this.kcp.setWndSize(1024, 1024);
     }
 
-    public recv(): DataPacket[]{
+    public recv(): DataPacket[] {
         const packets = [];
-        for(;;){
+        for (; ;) {
             const buffer = this.clientManager.networkManager.sharedBuffer;
             const read = this.kcp.recv(buffer);
-            if(read === -1 || read === -2){
+            if (read === -1 || read === -2) {
                 break;
             }
 
-            if(read === -3){
+            if (read === -3) {
                 Logger.error("Buffer is too small");
                 break;
             }
             const decrypted = cloneBuffer(buffer.slice(0, read));
             const packet = DataPacket.decode(decrypted);
-            if(packet){
+            if (packet) {
                 packets.push(packet);
-            }else{
+            } else {
                 continue;
             }
         }
@@ -69,11 +69,12 @@ export class Client {
         const id = PacketIds[name];
         const metadata = PacketHead.create({
             packetId: id,
+            userId: 1,
         });
         this.sendRaw(new DataPacket(id, Buffer.from(buffer), Buffer.from(PacketHead.toBinary(metadata))));
     }
 
-    public sendRaw(packet: DataPacket){
+    public sendRaw(packet: DataPacket) {
         Logger.log("Sending packet with ID: " + PacketIds[packet.id]);
         const buffer = packet.encode();
         this.kcp.send(buffer);

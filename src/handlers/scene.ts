@@ -39,12 +39,7 @@ export class SceneHandler {
                 promotion: 1,
                 rank: 1,
                 relicList: [],
-                skilltreeList: [
-                    AvatarSkillTree.create({
-                        level: 1,
-                        pointId: 100101
-                    }),
-                ],
+                skilltreeList: [],
                 sp: 1000,
             })
         ];
@@ -61,22 +56,12 @@ export class SceneHandler {
                     promotion: 1,
                     rank: 1,
                     relicList: [],
-                    skilltreeList: [
-                        AvatarSkillTree.create({
-                            level: 1,
-                            pointId: 100101
-                        }),
-                    ],
+                    skilltreeList: [],
                     sp: 1000,
                 })
             ],
-            battleId: 1,
-            buffList: [],
-            heroPathList: [],
-            logicRandomSeed: 233,
-            monsterWaveList: [],
-            roundsLimit: 0,
-            stageId: 10001
+            logicRandomSeed: 2503,
+            stageId: 10000
         });
         context.send(GetCurBattleInfoScRsp, rsp);
     }
@@ -92,59 +77,28 @@ export class SceneHandler {
                     id: 1001,
                     satiety: 10,
                     slot: 1,
-                    sp: 1,
+                    sp: 1000,
                 })
             ],
             name: "CloudySR",
             extraLineupType: ExtraLineupType.LINEUP_NONE,
-            index: 0,
-            leaderSlot: 0,
+            index: 1,
+            leaderSlot: 1,
             planeId: 10000,
-            isVirtual: true,
-            mp: 0,
+            isVirtual: false,
+            mp: 100,
         });
         context.send(GetCurLineupDataScRsp, rsp);
     };
 
     public GetCurSceneInfoCsReq(context: PacketContext<GetCurSceneInfoCsReq>) {
-        const entityId = (EntityType.ENTITY_AVATAR << 24) + 1;
         const rsp = GetCurSceneInfoScRsp.create();
         rsp.retcode = 0;
         rsp.scene = SceneInfo.create({
             entityBuffList: [],
-            entityList: [
-                SceneEntityInfo.create({
-                    entityId: entityId,
-                    groupId: 1,
-                    instId: 1,
-                    motion: MotionInfo.create({
-                        pos: Vector.create({
-                            x: 100,
-                            y: 100,
-                            z: 100,
-                        }),
-                        rot: Vector.create({
-                            x: 0,
-                            y: 0,
-                            z: 0,
-                        }),
-                    }),
-                    entity: {
-                        "oneofKind": "actor",
-                        "actor": SceneActorInfo.create({
-                            avatarType: AvatarType.AVATAR_FORMAL_TYPE,
-                            baseAvatarId: 1001,
-                            uid: 1,
-                        })
-                    }
-                })
-            ],
-            entryId: 1,
-            envBuffList: [],
+            entityList: [],
+            entryId: 10001,
             floorId: 10000000,
-            gameModeType: 0,
-            lightenSectionList: [],
-            leaderEntityId: entityId,
             planeId: 10000,
         });
         context.send(GetCurSceneInfoScRsp, rsp);

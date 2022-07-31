@@ -33,7 +33,7 @@ export class AuthHandler{
         rsp.loginRandom = context.request.loginRandom!;
         rsp.stamina = 1000;
         rsp.isNewPlayer = true;
-        rsp.isRelay = false;
+        rsp.isRelay = true;
 
         context.send(PlayerLoginScRsp, rsp);
     }

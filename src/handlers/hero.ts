@@ -26,23 +26,23 @@ export class HeroHandler {
                         id: 1001,
                         satiety: 10,
                         slot: 1,
-                        sp: 1,
+                        sp: 1000,
                     })
                 ],
                 name: "CloudySR",
                 extraLineupType: ExtraLineupType.LINEUP_NONE,
-                index: 0,
-                leaderSlot: 0,
+                index: 1,
+                leaderSlot: 1,
                 planeId: 10000,
                 isVirtual: true,
-                mp: 0
+                mp: 100,
             })
         ]
         context.send(GetAllLineupDataScRsp, rsp);
     }
 
     public GetAvatarDataCsReq(context: PacketContext<GetAvatarDataCsReq>) {
-        console.log(context.request.baseAvatarIdList)
+        console.log(context.request.baseAvatarIdList);
         const rsp = GetAvatarDataScRsp.create();
         rsp.avatarList = [
             Avatar.create({
@@ -53,12 +53,7 @@ export class HeroHandler {
                 level: 60,
                 promotion: 1,
                 rank: 1,
-                skilltreeList: [
-                    AvatarSkillTree.create({
-                        level: 1,
-                        pointId: 100101
-                    }),
-                ],
+                skilltreeList: [],
             })
         ];
 
@@ -78,20 +73,15 @@ export class HeroHandler {
         const rsp = GetHeroBasicTypeInfoScRsp.create();
         rsp.retcode = 0;
         rsp.gender = Gender.GenderMan;
-        rsp.isPlayerInfoModified = false;
-        rsp.isGenderModified = false;
+        rsp.isPlayerInfoModified = true;
+        rsp.isGenderModified = true;
         rsp.heroPathList = [];
         rsp.curBasicType = HeroBasicType.BoyKnight;
         rsp.basicTypeInfoList = [
             HeroBasicTypeInfo.create({
                 basicType: HeroBasicType.BoyKnight,
                 rank: 1,
-                skillTreeList: [
-                    AvatarSkillTree.create({
-                        level: 1,
-                        pointId: 100101
-                    }),
-                ],
+                skillTreeList: [],
             })
         ];
         context.send(GetHeroBasicTypeInfoScRsp, rsp);
