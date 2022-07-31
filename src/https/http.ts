@@ -6,15 +6,14 @@ import accountController from "./controllers/accountController";
 import dispatchController from "./controllers/dispatchController";
 import hkrpgController from "./controllers/hkrpgController";
 import indexController from "./controllers/indexController";
-import fastifyHttpsRedirect from "fastify-https-redirect";
 
 export class HttpServer{
 
-    readonly http;
+    readonly https;
 
     constructor(){
         const certPath = path.join(__dirname, "..", "..", "resources", "cert");
-        this.http = fastify(
+        this.https = fastify(
             {
                 http2: true,
                 https: {
@@ -24,19 +23,15 @@ export class HttpServer{
                 }
             }
         );
-        this.http.register(dispatchController);
-        this.http.register(indexController);
-        this.http.register(hkrpgController);
-        this.http.register(accountController);
-        this.http.register(fastifyHttpsRedirect, {
-            httpPort: 80
-        });
-
-        this.http.setErrorHandler(function (error, request, reply) {
+        this.https.register(dispatchController);
+        this.https.register(indexController);
+        this.https.register(hkrpgController);
+        this.https.register(accountController);
+        this.https.setErrorHandler(function (error, request, reply) {
             console.log(error)
         })
 
-        this.http.listen({
+        this.https.listen({
             port: 443,
         });
         

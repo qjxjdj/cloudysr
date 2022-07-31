@@ -8,15 +8,15 @@ export class Logger{
     static readonly YELLOW = chalk.rgb(240,230,140);
 
     static log(log: string){
-        console.log(Logger.GREEN("[LOG] > ") + log);
+        console.log(Logger.BLUE("[" + new Date().toLocaleTimeString() + "]") + Logger.GREEN(" | LOG | ") + log);
     }
 
     static warn(log: string){
-        console.log(Logger.YELLOW("[WARN] > ") + log);
+        console.log(Logger.BLUE("[" + new Date().toLocaleTimeString() + "]") + Logger.YELLOW(" | WARN | ") + log);
     }
 
     static error(log: string){
-        console.log(Logger.RED("[ERROR] > ") + log);
+        console.log(Logger.BLUE("[" + new Date().toLocaleTimeString() + "]") + Logger.RED(" | ERROR | ") + log);
     }
 
     //I don't even know anymore don't ask about this

@@ -1,10 +1,17 @@
 import { FastifyInstance, FastifyRequest } from "fastify";
+import { Logger } from "../../utils/log";
 
 type DataUploadRequest = FastifyRequest<{
-    Body: {
-        uploadContent: string;
-    }
+    Body: Log[];
 }>
+
+type Log = {
+    uploadContent: {
+        LogStr: string;
+        LogType: string;
+        StackTrace: string;
+    }
+}
 
 export default async function hkrpgController(fastify: FastifyInstance) {
     fastify.post("/hkrpg_global/combo/granter/api/compareProtocolVersion", async (request, reply) => {
@@ -87,8 +94,20 @@ export default async function hkrpgController(fastify: FastifyInstance) {
             }
         }));
     })
-    fastify.get("/hkrpg/dataUpload", async (request: DataUploadRequest, reply) => {
-        console.log(request.body);
+    fastify.post("/hkrpg/dataUpload", async (request: DataUploadRequest, reply) => {
+        for(const log of request.body){
+            switch(log.uploadContent.LogType){
+                case "Warning":
+                    Logger.warn(log.uploadContent.LogStr + "\n\nStacktrace: " + log.uploadContent.StackTrace);
+                    break;
+                case "Error":
+                    Logger.error(log.uploadContent.LogStr + "\n\nStacktrace: " + log.uploadContent.StackTrace);
+                    break;
+                default:
+                    Logger.log(log.uploadContent.LogStr + "\n\nStacktrace: " + log.uploadContent.StackTrace);
+                    break;
+            }
+        }
         reply.code(200).send(JSON.stringify({ code: 0 }));
     });
 }

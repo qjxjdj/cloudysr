@@ -36,9 +36,10 @@ export class RouteManager{
     public handle(client: Client, packet: DataPacket){
         const route = this.routes.get("proto." + PacketIds[packet.id]); //fast workaround
         if(!route){
-            Logger.warn("Unable to process packet with ID: " + packet.id);
+            Logger.warn("Unable to process packet" + PacketIds[packet.id] ?? "unknown");
             return;
         }
+        Logger.log("Handling packet with ID: " + PacketIds[packet.id]);
         route.handlers.forEach(handler => {
             handler(new PacketContext(route.type.fromBinary(packet.data), client));
         });

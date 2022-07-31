@@ -39,7 +39,6 @@ export class Client {
             const decrypted = cloneBuffer(buffer.slice(0, read));
             const packet = DataPacket.decode(decrypted);
             if(packet){
-                Logger.log("Received packet with ID: " + packet?.id);
                 packets.push(packet);
             }else{
                 continue;
@@ -75,7 +74,7 @@ export class Client {
     }
 
     public sendRaw(packet: DataPacket){
-        Logger.log("Sending packet with ID: " + packet.id);
+        Logger.log("Sending packet with ID: " + PacketIds[packet.id]);
         const buffer = packet.encode();
         this.kcp.send(buffer);
     }

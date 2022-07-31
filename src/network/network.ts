@@ -1,6 +1,21 @@
 import Denque from "denque";
 import { createSocket, RemoteInfo } from "dgram";
+import { ActivityHandler } from "../handlers/activity";
 import { AuthHandler } from "../handlers/auth";
+import { ChallengeHandler } from "../handlers/challenge";
+import { ExpeditionHandler } from "../handlers/expedition";
+import { HeroHandler } from "../handlers/hero";
+import { InventoryHandler } from "../handlers/inventory";
+import { MailHandler } from "../handlers/mail";
+import { MissionHandler } from "../handlers/mission";
+import { NpcHandler } from "../handlers/npc";
+import { PlayerHandler } from "../handlers/player";
+import { PrestigeHandler } from "../handlers/prestige";
+import { RewardHandler } from "../handlers/reward";
+import { RogueHandler } from "../handlers/rogue";
+import { SceneHandler } from "../handlers/scene";
+import { ShopHandler } from "../handlers/shop";
+import { TutorialHandler } from "../handlers/tutorial";
 import { Logger } from "../utils/log";
 import { MT19937_64 } from "../utils/mt";
 import { ClientManager } from "./client";
@@ -52,7 +67,22 @@ export class NetworkManager{
     }
 
     public registeringRoutes(){
+        new ActivityHandler(this.routeManager);
+        new RogueHandler(this.routeManager);
         new AuthHandler(this.routeManager);
+        new ChallengeHandler(this.routeManager);
+        new ExpeditionHandler(this.routeManager);
+        new HeroHandler(this.routeManager);
+        new InventoryHandler(this.routeManager)
+        new MailHandler(this.routeManager);
+        new MissionHandler(this.routeManager);
+        new NpcHandler(this.routeManager);
+        new PlayerHandler(this.routeManager);
+        new PrestigeHandler(this.routeManager);
+        new RewardHandler(this.routeManager);
+        new SceneHandler(this.routeManager);
+        new TutorialHandler(this.routeManager);
+        new ShopHandler(this.routeManager);
     }
 
     onReceived(message: Buffer, remoteInfo: RemoteInfo){
