@@ -6,6 +6,7 @@ import accountController from "./controllers/accountController";
 import dispatchController from "./controllers/dispatchController";
 import hkrpgController from "./controllers/hkrpgController";
 import indexController from "./controllers/indexController";
+import fastifyHttpsRedirect from "fastify-https-redirect";
 
 export class HttpServer{
 
@@ -27,13 +28,18 @@ export class HttpServer{
         this.http.register(indexController);
         this.http.register(hkrpgController);
         this.http.register(accountController);
+        this.http.register(fastifyHttpsRedirect, {
+            httpPort: 80
+        });
 
         this.http.setErrorHandler(function (error, request, reply) {
             console.log(error)
         })
+
         this.http.listen({
             port: 443,
         });
+        
         Logger.log("Dispatch initialized.");
     }
 }

@@ -40,6 +40,15 @@ export class NetworkManager{
 
         this.socket.bind(23301);
         this.registeringRoutes();
+        setInterval(() => {
+            this.clientManager.clients.forEach((client) => {
+                if(client.kcp.isDeadLink()){
+                    this.clientManager.remove(client.address);
+                }else{
+                    client.kcp.update(Date.now());
+                }
+            });
+        }, 10)
     }
 
     public registeringRoutes(){

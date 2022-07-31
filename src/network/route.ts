@@ -34,7 +34,7 @@ export class RouteManager{
     }
 
     public handle(client: Client, packet: DataPacket){
-        const route = this.routes.get(PacketIds[packet.id]);
+        const route = this.routes.get("proto." + PacketIds[packet.id]); //fast workaround
         if(!route){
             Logger.warn("Unable to process packet with ID: " + packet.id);
             return;

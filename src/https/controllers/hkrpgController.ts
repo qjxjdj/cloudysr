@@ -1,4 +1,10 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyRequest } from "fastify";
+
+type DataUploadRequest = FastifyRequest<{
+    Body: {
+        uploadContent: string;
+    }
+}>
 
 export default async function hkrpgController(fastify: FastifyInstance) {
     fastify.post("/hkrpg_global/combo/granter/api/compareProtocolVersion", async (request, reply) => {
@@ -53,7 +59,7 @@ export default async function hkrpgController(fastify: FastifyInstance) {
             }
         }));
     });
-    
+
     fastify.get("/hkrpg_global/mdk/shield/api/loadConfig", async (request, reply) => {
         reply.code(200).send(JSON.stringify({
             "retcode": 0,
@@ -80,5 +86,9 @@ export default async function hkrpgController(fastify: FastifyInstance) {
                 "thirdparty_login_configs": {}
             }
         }));
+    })
+    fastify.get("/hkrpg/dataUpload", async (request: DataUploadRequest, reply) => {
+        console.log(request.body);
+        reply.code(200).send(JSON.stringify({ code: 0 }));
     });
 }
