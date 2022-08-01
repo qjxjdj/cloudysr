@@ -71,6 +71,7 @@ export class Client {
             packetId: id,
             userId: 1,
         });
+        Logger.log(JSON.stringify(type.toJson(message as T), null , 2));
         this.sendRaw(new DataPacket(id, Buffer.from(buffer), Buffer.from(PacketHead.toBinary(metadata))));
     }
 

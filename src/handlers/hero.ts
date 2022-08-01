@@ -15,29 +15,8 @@ export class HeroHandler {
 
     public GetAllLineupDataCsReq(context: PacketContext<GetAllLineupDataCsReq>) {
         const rsp = GetAllLineupDataScRsp.create();
-        rsp.curIndex = 1;
         rsp.retcode = 0;
-        rsp.lineupList = [
-            LineupInfo.create({
-                avatarList: [
-                    LineupAvatar.create({
-                        avatarType: AvatarType.AVATAR_FORMAL_TYPE,
-                        hp: 1000,
-                        id: 1001,
-                        satiety: 10,
-                        slot: 1,
-                        sp: 1000,
-                    })
-                ],
-                name: "CloudySR",
-                extraLineupType: ExtraLineupType.LINEUP_NONE,
-                index: 1,
-                leaderSlot: 1,
-                planeId: 10000,
-                isVirtual: true,
-                mp: 100,
-            })
-        ]
+        rsp.lineupList = []
         context.send(GetAllLineupDataScRsp, rsp);
     }
 
@@ -47,13 +26,13 @@ export class HeroHandler {
         rsp.avatarList = [
             Avatar.create({
                 baseAvatarId: 1001,
-                equipRelicList: [],
-                equipmentUniqueId: 0,
                 exp: 0,
-                level: 60,
+                level: 1,
                 promotion: 1,
                 rank: 1,
                 skilltreeList: [],
+                equipmentUniqueId: 13501,
+                equipRelicList: [],
             })
         ];
 
@@ -81,7 +60,7 @@ export class HeroHandler {
             HeroBasicTypeInfo.create({
                 basicType: HeroBasicType.BoyKnight,
                 rank: 1,
-                skillTreeList: [],
+                skillTreeList: []
             })
         ];
         context.send(GetHeroBasicTypeInfoScRsp, rsp);

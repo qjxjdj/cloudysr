@@ -81,7 +81,7 @@ export class NetworkManager{
         new PrestigeHandler(this.routeManager);
         new RewardHandler(this.routeManager);
         new SceneHandler(this.routeManager);
-        new TutorialHandler(this.routeManager);
+        //new TutorialHandler(this.routeManager);
         new ShopHandler(this.routeManager);
     }
 
