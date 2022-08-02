@@ -28,7 +28,6 @@ export class AvatarHandler {
                 SyncLineupReason.SYNC_REASON_MP_ADD
             ]
         })
-        Logger.log(JSON.stringify(LineupInfo.toJson(lineup.toLineupInfo()), null, 2));
         context.send(JoinLineupScRsp, rsp);
         context.send(SyncLineupNotify, syncLineup);
     }
