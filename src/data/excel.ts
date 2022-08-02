@@ -20,12 +20,13 @@ export default class AvatarExcel {
             return Avatar.create({
                 baseAvatarId: entry.AvatarID,
                 equipRelicList: [],
-                equipmentUniqueId: 200030,
-                exp: 10,
+                equipmentUniqueId: 20003,
+                exp: 70,
                 level: 70,
-                promotion: 1,
-                rank: 1,
-                skilltreeList: []
+                promotion: 4,
+                rank: 4,
+                //skilltreeList: [],
+                skilltreeList: [],
             });
         });
     }

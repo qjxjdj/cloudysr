@@ -22,21 +22,9 @@ export class SceneHandler {
 
     public GetCurBattleInfoCsReq(context: PacketContext<GetCurBattleInfoCsReq>) {
         const rsp = GetCurBattleInfoScRsp.create();
+        const lineup = context.player!.lineups[0];
         rsp.retcode = 0;
-        rsp.avatarList = [
-            BattleAvatar.create({
-                avatarType: 3,
-                id: 1001,
-                level: 1,
-                promotion: 1,
-                rank: 1,
-                skilltreeList: [],
-                hp: 1000,
-                sp: 1000,
-                index: 0
-            })
-        ];
-
+        rsp.avatarList = lineup.toBattleAvatar();
         rsp.battleInfo = SceneBattleInfo.create();
         rsp.stageId = 10000;
         rsp.logicRandomSeed = 1;
@@ -49,6 +37,7 @@ export class SceneHandler {
         const rsp = GetCurLineupDataScRsp.create();
         rsp.retcode = 0;
         rsp.lineup = context.player!.lineups[0].toLineupInfo();
+        console.log(LineupInfo.toJsonString(context.player!.lineups[0].toLineupInfo()))
         context.send(GetCurLineupDataScRsp, rsp);
     };
 
@@ -56,8 +45,8 @@ export class SceneHandler {
         const rsp = GetCurSceneInfoScRsp.create();
         rsp.retcode = 0;
         rsp.scene = SceneInfo.create({
-            planeId: 10000,
-            floorId: 10000000,
+            planeId: 10102,
+            floorId: 10102001,
             entityList: [],
             entityBuffList: [],
             entryId: 10001,

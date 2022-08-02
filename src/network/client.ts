@@ -71,6 +71,7 @@ export class Client {
         const buffer = type.toBinary(message as T);
         const id = PacketIds[name];
         const metadata = PacketHead.create({});
+        Logger.log(type.toJsonString(message as T));
         this.sendRaw(new DataPacket(id, Buffer.from(buffer), Buffer.from(PacketHead.toBinary(metadata))));
     }
 

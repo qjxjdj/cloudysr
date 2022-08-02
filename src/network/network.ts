@@ -5,7 +5,7 @@ import { AuthHandler } from "../handlers/auth";
 import { ChallengeHandler } from "../handlers/challenge";
 import { ExpeditionHandler } from "../handlers/expedition";
 import { GachaHandler } from "../handlers/gacha";
-import { HeroHandler } from "../handlers/hero";
+import { AvatarHandler } from "../handlers/avatar";
 import { InventoryHandler } from "../handlers/inventory";
 import { MailHandler } from "../handlers/mail";
 import { MissionHandler } from "../handlers/mission";
@@ -72,7 +72,7 @@ export class NetworkManager{
         new AuthHandler(this.routeManager);
         new ChallengeHandler(this.routeManager);
         new ExpeditionHandler(this.routeManager);
-        new HeroHandler(this.routeManager);
+        new AvatarHandler(this.routeManager);
         new InventoryHandler(this.routeManager)
         new MailHandler(this.routeManager);
         new MissionHandler(this.routeManager);
