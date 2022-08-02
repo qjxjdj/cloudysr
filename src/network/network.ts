@@ -4,6 +4,7 @@ import { ActivityHandler } from "../handlers/activity";
 import { AuthHandler } from "../handlers/auth";
 import { ChallengeHandler } from "../handlers/challenge";
 import { ExpeditionHandler } from "../handlers/expedition";
+import { GachaHandler } from "../handlers/gacha";
 import { HeroHandler } from "../handlers/hero";
 import { InventoryHandler } from "../handlers/inventory";
 import { MailHandler } from "../handlers/mail";
@@ -15,7 +16,6 @@ import { RewardHandler } from "../handlers/reward";
 import { RogueHandler } from "../handlers/rogue";
 import { SceneHandler } from "../handlers/scene";
 import { ShopHandler } from "../handlers/shop";
-import { TutorialHandler } from "../handlers/tutorial";
 import { Logger } from "../utils/log";
 import { MT19937_64 } from "../utils/mt";
 import { ClientManager } from "./client";
@@ -81,8 +81,8 @@ export class NetworkManager{
         new PrestigeHandler(this.routeManager);
         new RewardHandler(this.routeManager);
         new SceneHandler(this.routeManager);
-        //new TutorialHandler(this.routeManager);
         new ShopHandler(this.routeManager);
+        new GachaHandler(this.routeManager);
     }
 
     onReceived(message: Buffer, remoteInfo: RemoteInfo){
