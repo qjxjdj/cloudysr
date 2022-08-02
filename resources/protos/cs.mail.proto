@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message GetMailCsReq {
+    uint32 start = 1;
+    uint32 stop = 2;
+}
+
+message ClientMail {
+    uint32 id = 1;
+    uint32 template_id = 2;
+    string title = 3;
+    string content = 4;
+    string sender = 5;
+    uint32 time = 6;
+    ItemList attachment = 7;
+    bool is_read = 8;
+    uint32 expire_time = 9;
+    repeated string para_list = 10;
+}
+
+message GetMailScRsp {
+    uint32 retcode = 1;
+    repeated ClientMail mail_list = 2;
+    bool is_end = 3;
+    uint32 total_num = 4;
+    uint32 start = 5;
+    repeated ClientMail notice_mail_list = 6;
+}
+
+message MarkReadMailCsReq {
+    uint32 id = 1;
+}
+
+message MarkReadMailScRsp {
+    uint32 retcode = 1;
+    uint32 id = 2;
+}
+
+message DelMailCsReq {
+    repeated uint32 id_list = 1;
+}
+
+message DelMailScRsp {
+    uint32 retcode = 1;
+    repeated uint32 id_list = 2;
+}
+
+message TakeMailAttachmentCsReq {
+    repeated uint32 mail_id_list = 1;
+}
+
+message ClientMailAttachmentItem {
+    uint32 mail_id = 1;
+    uint32 item_id = 2;
+}
+
+message TakeMailAttachmentScRsp {
+    uint32 retcode = 1;
+    repeated uint32 succ_mail_id_list = 2;
+    ItemList attachment = 3;
+    repeated ClientMailAttachmentItem fail_mail_list = 4;
+}
+
+message NewMailScNotify {
+    repeated uint32 mail_id_list = 1;
+}
+
+enum CmdMailType {
+    CmdMailTypeNone = 0;
+    CmdGetMailCsReq = 801;
+    CmdGetMailScRsp = 802;
+    CmdMarkReadMailCsReq = 803;
+    CmdMarkReadMailScRsp = 804;
+    CmdDelMailCsReq = 805;
+    CmdDelMailScRsp = 806;
+    CmdTakeMailAttachmentCsReq = 807;
+    CmdTakeMailAttachmentScRsp = 808;
+    CmdNewMailScNotify = 809;
+}

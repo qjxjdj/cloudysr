@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message GetGachaInfoCsReq {
+    
+}
+
+message GachaInfo {
+    uint32 gacha_id = 1;
+    uint32 begin_time = 2;
+    uint32 end_time = 3;
+    string detail_webview = 4;
+    uint32 newbie_gacha_cnt = 5;
+    uint32 today_gacha_cnt = 6;
+}
+
+message GetGachaInfoScRsp {
+    uint32 retcode = 1;
+    repeated GachaInfo gacha_info_list = 2;
+    uint32 gacha_random = 3;
+    uint32 today_total_gacha_cnt = 4;
+    uint32 today_single_gacha_max_cnt = 5;
+    uint32 today_total_gacha_max_cnt = 6;
+}
+
+message DoGachaCsReq {
+    uint32 gacha_id = 1;
+    uint32 gacha_num = 2;
+    uint32 gacha_random = 3;
+    uint32 simulate_magic = 4;
+}
+
+message GachaItem {
+    Item gacha_item = 1;
+    ItemList transfer_item_list = 2;
+    bool is_new = 3;
+    ItemList token_item = 4;
+}
+
+message DoGachaScRsp {
+    uint32 retcode = 1;
+    uint32 gacha_id = 2;
+    uint32 gacha_num = 3;
+    repeated GachaItem gacha_item_list = 4;
+    uint32 new_gacha_random = 5;
+    uint32 newbie_gacha_cnt = 6;
+    uint32 today_gacha_cnt = 7;
+    uint32 today_total_gacha_cnt = 8;
+}
+
+enum CmdGachaType {
+    CmdGachaTypeNone = 0;
+    CmdGetGachaInfoCsReq = 1901;
+    CmdGetGachaInfoScRsp = 1902;
+    CmdDoGachaCsReq = 1903;
+    CmdDoGachaScRsp = 1904;
+}

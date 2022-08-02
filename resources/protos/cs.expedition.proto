@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message Expedition {
+    uint32 id = 1;
+    uint32 accept_time = 2;
+    uint32 duration = 3;
+    repeated uint32 avatar_id_list = 4;
+}
+
+message GetExpeditionDataCsReq {
+    
+}
+
+message GetExpeditionDataScRsp {
+    uint32 retcode = 1;
+    uint32 team_count = 2;
+    repeated uint32 unlocked_expedition_id_list = 3;
+    repeated Expedition expedtion_list = 4;
+}
+
+message AcceptExpeditionCsReq {
+    Expedition expedition = 1;
+}
+
+message AcceptExpeditionScRsp {
+    uint32 retcode = 1;
+    Expedition expedition = 2;
+}
+
+message CancelExpeditionCsReq {
+    uint32 expedition_id = 1;
+}
+
+message CancelExpeditionScRsp {
+    uint32 retcode = 1;
+    uint32 expedition_id = 2;
+}
+
+message TakeExpeditionRewardCsReq {
+    uint32 expedition_id = 1;
+}
+
+message TakeExpeditionRewardScRsp {
+    uint32 retcode = 1;
+    uint32 expedition_id = 2;
+    ItemList reward = 3;
+}
+
+enum CmdExpeditionType {
+    CmdExpeditionTypeNone = 0;
+    CmdGetExpeditionDataCsReq = 2501;
+    CmdGetExpeditionDataScRsp = 2502;
+    CmdAcceptExpeditionCsReq = 2503;
+    CmdAcceptExpeditionScRsp = 2504;
+    CmdCancelExpeditionCsReq = 2505;
+    CmdCancelExpeditionScRsp = 2506;
+    CmdTakeExpeditionRewardCsReq = 2507;
+    CmdTakeExpeditionRewardScRsp = 2508;
+}

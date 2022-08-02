@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message Shop {
+    uint32 shop_id = 1;
+    uint32 begin_time = 2;
+    uint32 end_time = 3;
+    repeated Goods goods_list = 4;
+}
+
+message Goods {
+    uint32 goods_id = 1;
+    uint32 buy_times = 2;
+    uint32 begin_time = 3;
+    uint32 end_time = 4;
+}
+
+message GetShopListCsReq {
+    uint32 shop_type = 1;
+}
+
+message GetShopListScRsp {
+    uint32 retcode = 1;
+    repeated Shop shop_list = 2;
+    uint32 shop_type = 3;
+}
+
+message BuyGoodsCsReq {
+    uint32 shop_id = 1;
+    uint32 goods_id = 2;
+    uint32 goods_num = 3;
+}
+
+message BuyGoodsScRsp {
+    uint32 retcode = 1;
+    uint32 shop_id = 2;
+    uint32 goods_id = 3;
+    uint32 goods_buy_times = 4;
+    ItemList return_item_list = 5;
+}
+
+enum CmdShopType {
+    CmdShopTypeNone = 0;
+    CmdGetShopListCsReq = 1501;
+    CmdGetShopListScRsp = 1502;
+    CmdBuyGoodsCsReq = 1503;
+    CmdBuyGoodsScRsp = 1504;
+}

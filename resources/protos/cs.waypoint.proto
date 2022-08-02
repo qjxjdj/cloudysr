@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package proto;
+
+message Waypoint {
+    uint32 id = 1;
+    uint32 finish_times = 2;
+    bool is_new = 3;
+}
+
+message ChapterBrief {
+    uint32 id = 1;
+    uint32 finish_challenge_num = 2;
+    repeated uint32 taken_reward_id_list = 3;
+    bool is_new = 4;
+}
+
+message Chapter {
+    ChapterBrief brief_info = 1;
+    repeated Waypoint waypoint_list = 2;
+}
+
+message GetWaypointCsReq {
+    uint32 chapter_id = 1;
+}
+
+message GetWaypointScRsp {
+    uint32 retcode = 1;
+    Chapter chapter = 2;
+    uint32 cur_waypoint_id = 3;
+}
+
+message SetCurWaypointCsReq {
+    uint32 waypoint_id = 1;
+}
+
+message SetCurWaypointScRsp {
+    uint32 retcode = 1;
+    uint32 cur_waypoint_id = 2;
+}
+
+message GetChapterCsReq {
+    
+}
+
+message GetChapterScRsp {
+    uint32 retcode = 1;
+    repeated ChapterBrief chapter_list = 2;
+    uint32 cur_waypoint_id = 3;
+}
+
+message WaypointShowNewCsNotify {
+    uint32 waypoint_id = 1;
+    uint32 chapter_id = 2;
+}
+
+message TakeChapterRewardCsReq {
+    uint32 chapter_id = 1;
+    uint32 chapter_reward_id = 2;
+}
+
+message TakeChapterRewardScRsp {
+    uint32 retcode = 1;
+    uint32 chapter_id = 2;
+    uint32 chapter_reward_id = 3;
+}
+
+enum CmdWaypointType {
+    CmdWaypointTypeNone = 0;
+    CmdGetWaypointCsReq = 401;
+    CmdGetWaypointScRsp = 402;
+    CmdSetCurWaypointCsReq = 403;
+    CmdSetCurWaypointScRsp = 404;
+    CmdGetChapterCsReq = 405;
+    CmdGetChapterScRsp = 406;
+    CmdWaypointShowNewCsNotify = 407;
+    CmdTakeChapterRewardCsReq = 408;
+    CmdTakeChapterRewardScRsp = 409;
+}
+
+enum WaypointType {
+    WAYPOINT_TYPE_NONE = 0;
+    WAYPOINT_TYPE_STAGE = 1;
+    WAYPOINT_TYPE_PLOT = 2;
+}
+
+enum WaypointUnlockType {
+    WAYPOINT_UNLOCK_NONE = 0;
+    WAYPOINT_UNLOCK_PRE = 1;
+    WAYPOINT_UNLOCK_LEVEL = 2;
+}

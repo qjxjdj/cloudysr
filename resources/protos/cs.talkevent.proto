@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+import "cs.scene.proto";
+
+message GetNpcTakenRewardCsReq {
+    uint32 npc_id = 1;
+}
+
+message GetNpcTakenRewardScRsp {
+    uint32 retcode = 1;
+    uint32 npc_id = 2;
+    repeated uint32 talk_event_list = 3;
+}
+
+message TakeTalkRewardCsReq {
+    uint32 talk_event_id = 1;
+    Vector npc_location = 2;
+}
+
+message TakeTalkRewardScRsp {
+    uint32 retcode = 1;
+    uint32 talk_event_id = 2;
+    ItemList reward = 3;
+}
+
+message GetFirstTalkNpcCsReq {
+    repeated uint32 series_id_list = 1;
+}
+
+message NpcMeetStatus {
+    uint32 series_id = 1;
+    bool is_meet = 2;
+}
+
+message GetFirstTalkNpcScRsp {
+    uint32 retcode = 1;
+    repeated NpcMeetStatus npc_meet_status_list = 2;
+}
+
+message FinishFirstTalkNpcCsReq {
+    uint32 series_id = 1;
+}
+
+message FinishFirstTalkNpcScRsp {
+    uint32 retcode = 1;
+    uint32 series_id = 2;
+}
+
+enum CmdTalkEventType {
+    CmdTalkRewardTypeNone = 0;
+    CmdGetNpcTakenRewardCsReq = 2101;
+    CmdGetNpcTakenRewardScRsp = 2102;
+    CmdTakeTalkRewardCsReq = 2103;
+    CmdTakeTalkRewardScRsp = 2104;
+    CmdGetFirstTalkNpcCsReq = 2105;
+    CmdGetFirstTalkNpcScRsp = 2106;
+    CmdFinishFirstTalkNpcCsReq = 2107;
+    CmdFinishFirstTalkNpcScRsp = 2108;
+}

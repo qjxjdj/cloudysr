@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message GetNpcMessageGroupCsReq {
+    repeated uint32 contact_id_list = 1;
+}
+
+message MessageItem {
+    uint32 item_id = 1;
+    uint32 text_id = 2;
+}
+
+message MessageSection {
+    uint32 id = 1;
+    uint32 message_item_id = 2;
+    MessageSectionStatus status = 3;
+    repeated MessageItem item_list = 4;
+}
+
+message MessageGroup {
+    uint32 id = 1;
+    uint32 message_section_id = 2;
+    MessageGroupStatus status = 3;
+    uint32 refresh_time = 4;
+    repeated MessageSection message_section_list = 5;
+}
+
+message GetNpcMessageGroupScRsp {
+    uint32 retcode = 1;
+    repeated MessageGroup message_group_list = 2;
+}
+
+message GetNpcStatusCsReq {
+    
+}
+
+message NpcStatus {
+    uint32 npc_id = 1;
+    bool is_finish = 2;
+}
+
+message GroupStatus {
+    uint32 group_id = 1;
+    MessageGroupStatus group_status = 2;
+    uint32 refresh_time = 3;
+}
+
+message SectionStatus {
+    uint32 section_id = 1;
+    MessageSectionStatus section_status = 2;
+}
+
+message GetNpcStatusScRsp {
+    uint32 retcode = 1;
+    repeated NpcStatus message_status_list = 2;
+}
+
+message FinishItemIdCsReq {
+    uint32 item_id = 1;
+    uint32 text_id = 2;
+}
+
+message FinishItemIdScRsp {
+    uint32 retcode = 1;
+    uint32 item_id = 2;
+    uint32 text_id = 3;
+}
+
+message FinishSectionIdCsReq {
+    uint32 section_id = 1;
+}
+
+message FinishSectionIdScRsp {
+    uint32 retcode = 1;
+    uint32 section_id = 2;
+}
+
+enum CmdMessageType {
+    CmdMessageTypeNone = 0;
+    CmdGetNpcMessageGroupCsReq = 2701;
+    CmdGetNpcMessageGroupScRsp = 2702;
+    CmdGetNpcStatusCsReq = 2703;
+    CmdGetNpcStatusScRsp = 2704;
+    CmdFinishItemIdCsReq = 2705;
+    CmdFinishItemIdScRsp = 2706;
+    CmdFinishSectionIdCsReq = 2707;
+    CmdFinishSectionIdScRsp = 2708;
+}

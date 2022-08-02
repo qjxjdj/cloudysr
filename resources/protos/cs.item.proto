@@ -1,0 +1,175 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.define.proto";
+import "common.gamecore.proto";
+import "cs.common.proto";
+
+message GetBagCsReq {
+    
+}
+
+message Equipment {
+    uint32 unique_id = 1;
+    uint32 tid = 2;
+    uint32 level = 3;
+    uint32 exp = 4;
+    uint32 rank = 5;
+    uint32 base_avatar_id = 6;
+    bool is_protected = 7;
+    uint32 promotion = 8;
+}
+
+message Relic {
+    uint32 unique_id = 1;
+    uint32 tid = 2;
+    uint32 level = 3;
+    uint32 exp = 4;
+    uint32 base_avatar_id = 5;
+    bool is_protected = 6;
+    uint32 main_affix_id = 7;
+    repeated RelicAffix sub_affix_list = 8;
+}
+
+message Material {
+    uint32 tid = 1;
+    uint32 num = 2;
+}
+
+message WaitDelResource {
+    uint32 tid = 1;
+    uint32 num = 2;
+}
+
+message GetBagScRsp {
+    uint32 retcode = 1;
+    repeated Equipment equipment_list = 2;
+    repeated Material material_list = 3;
+    repeated Relic relic_list = 4;
+    repeated Material rogue_item_list = 5;
+    repeated WaitDelResource wait_del_resource_list = 6;
+}
+
+message PromoteEquipmentCsReq {
+    uint32 equipment_unique_id = 1;
+    ItemCostData cost_data = 2;
+}
+
+message PromoteEquipmentScRsp {
+    uint32 retcode = 1;
+}
+
+message LockEquipmentCsReq {
+    uint32 equipment_unique_id = 1;
+    bool is_lock = 2;
+}
+
+message LockEquipmentScRsp {
+    uint32 retcode = 1;
+    uint32 equipment_unique_id = 2;
+}
+
+message UseItemCsReq {
+    uint32 use_item_id = 1;
+    uint32 use_item_count = 2;
+    uint32 base_avatar_id = 3;
+    AvatarType use_avatar_type = 4;
+    uint32 optional_reward_id = 5;
+}
+
+message UseItemScRsp {
+    uint32 retcode = 1;
+    uint32 use_item_id = 2;
+    uint32 use_item_count = 3;
+    ItemList return_data = 4;
+}
+
+message RankUpEquipmentCsReq {
+    uint32 equipment_unique_id = 1;
+    repeated uint32 equipment_id_list = 2;
+}
+
+message RankUpEquipmentScRsp {
+    uint32 retcode = 1;
+}
+
+message ExpUpEquipmentCsReq {
+    uint32 equipment_unique_id = 1;
+    ItemCostData cost_data = 2;
+}
+
+message ExpUpEquipmentScRsp {
+    uint32 retcode = 1;
+    repeated PileItem return_item_list = 2;
+}
+
+message ComposeItemCsReq {
+    uint32 compose_id = 1;
+    uint32 count = 2;
+}
+
+message ComposeItemScRsp {
+    uint32 retcode = 1;
+    uint32 compose_id = 2;
+    uint32 count = 3;
+    ItemList return_item_list = 4;
+}
+
+message ExpUpRelicCsReq {
+    uint32 relic_unique_id = 1;
+    ItemCostData cost_data = 2;
+}
+
+message ExpUpRelicScRsp {
+    uint32 retcode = 1;
+    repeated PileItem return_item_list = 2;
+}
+
+message LockRelicCsReq {
+    uint32 relic_unique_id = 1;
+    bool is_lock = 2;
+}
+
+message LockRelicScRsp {
+    uint32 retcode = 1;
+    uint32 relic_unique_id = 2;
+}
+
+message SellItemCsReq {
+    ItemCostData cost_data = 1;
+}
+
+message SellItemScRsp {
+    uint32 retcode = 1;
+    ItemList return_item_list = 2;
+}
+
+message RechargeSuccNotify {
+    ItemList item_list = 1;
+}
+
+enum CmdItemType {
+    CmdItemTypeNone = 0;
+    CmdGetBagCsReq = 501;
+    CmdGetBagScRsp = 502;
+    CmdPromoteEquipmentCsReq = 503;
+    CmdPromoteEquipmentScRsp = 504;
+    CmdLockEquipmentCsReq = 505;
+    CmdLockEquipmentScRsp = 506;
+    CmdUseItemCsReq = 507;
+    CmdUseItemScRsp = 508;
+    CmdRankUpEquipmentCsReq = 509;
+    CmdRankUpEquipmentScRsp = 510;
+    CmdExpUpEquipmentCsReq = 511;
+    CmdExpUpEquipmentScRsp = 512;
+    CmdComposeItemCsReq = 513;
+    CmdComposeItemScRsp = 514;
+    CmdExpUpRelicCsReq = 515;
+    CmdExpUpRelicScRsp = 516;
+    CmdLockRelicCsReq = 517;
+    CmdLockRelicScRsp = 518;
+    CmdSellItemCsReq = 519;
+    CmdSellItemScRsp = 520;
+    CmdRechargeSuccNotify = 521;
+}

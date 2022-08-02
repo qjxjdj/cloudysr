@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message LoginActivityData {
+    uint32 id = 1;
+    uint32 login_days = 2;
+    repeated uint32 has_taken_login_activity_reward_days_list = 3;
+}
+
+message GetLoginActivityCsReq {
+    
+}
+
+message GetLoginActivityScRsp {
+    uint32 retcode = 1;
+    repeated LoginActivityData login_activity_list = 2;
+}
+
+message TakeLoginActivityRewardCsReq {
+    uint32 id = 1;
+    uint32 take_days = 2;
+}
+
+message TakeLoginActivityRewardScRsp {
+    uint32 retcode = 1;
+    uint32 id = 2;
+    uint32 take_days = 3;
+    ItemList reward = 4;
+}
+
+enum CmdActivityType {
+    CmdActivityTypeNone = 0;
+    CmdGetLoginActivityCsReq = 2601;
+    CmdGetLoginActivityScRsp = 2602;
+    CmdTakeLoginActivityRewardCsReq = 2603;
+    CmdTakeLoginActivityRewardScRsp = 2604;
+}

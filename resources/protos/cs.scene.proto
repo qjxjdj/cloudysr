@@ -1,0 +1,425 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.define.proto";
+import "cs.common.proto";
+
+message Vector {
+    sint32 x = 1;
+    sint32 y = 2;
+    sint32 z = 3;
+}
+
+message MotionInfo {
+    Vector pos = 1;
+    Vector rot = 2;
+}
+
+message SceneActorInfo {
+    uint32 uid = 1;
+    AvatarType avatar_type = 2;
+    uint32 base_avatar_id = 3;
+    uint32 map_layer = 4;
+}
+
+message SceneNpcMonsterInfo {
+    uint32 monster_id = 1;
+    bool is_gen_monster = 2;
+    uint32 event_id = 3;
+    bool is_set_world_level = 4;
+    uint32 world_level = 5;
+}
+
+message NpcRogueInfo {
+    uint32 dialogue_group_id = 1;
+    uint32 rogue_npc_id = 2;
+}
+
+message NpcExtraInfo {
+    oneof info {
+        NpcRogueInfo rogue_info = 1;
+    }
+}
+
+message SceneNpcInfo {
+    uint32 npc_id = 1;
+    NpcExtraInfo extra_info = 2;
+}
+
+message PropRogueInfo {
+    uint32 room_id = 1;
+    uint32 appraisal_count = 2;
+    uint32 appraisal_max_count = 3;
+    uint32 pick_avatar_max_count = 4;
+}
+
+message PropExtraInfo {
+    oneof info {
+        PropRogueInfo rogue_info = 1;
+    }
+}
+
+message ScenePropInfo {
+    uint32 prop_id = 1;
+    uint32 prop_state = 2;
+    uint64 create_time_ms = 3;
+    uint32 life_time_ms = 4;
+    PropExtraInfo extra_info = 5;
+}
+
+message SceneEntityInfo {
+    uint32 entity_id = 1;
+    MotionInfo motion = 2;
+    uint32 group_id = 3;
+    uint32 inst_id = 4;
+    
+    oneof entity {
+        SceneActorInfo actor = 5;
+        SceneNpcMonsterInfo npc_monster = 6;
+        SceneNpcInfo npc = 7;
+        ScenePropInfo prop = 8;
+    }
+}
+
+message BuffInfo {
+    uint32 buff_id = 1;
+    uint32 level = 2;
+    uint64 add_time_ms = 3;
+    float life_time = 4;
+    uint32 count = 5;
+    uint32 base_avatar_id = 6;
+    map<string, float> dynamic_values = 7;
+}
+
+message EntityBuffInfo {
+    uint32 entity_id = 1;
+    repeated BuffInfo buff_list = 2;
+}
+
+message SceneInfo {
+    uint32 plane_id = 1;
+    uint32 floor_id = 2;
+    repeated SceneEntityInfo entity_list = 3;
+    repeated uint32 lighten_section_list = 4;
+    uint32 leader_entity_id = 5;
+    uint32 entry_id = 6;
+    repeated BuffInfo env_buff_list = 7;
+    repeated EntityBuffInfo entity_buff_list = 8;
+    uint32 game_mode_type = 9;
+}
+
+message EntityMotion {
+    uint32 entity_id = 1;
+    MotionInfo motion = 2;
+    uint32 map_layer = 3;
+}
+
+message SceneEntityMoveCsReq {
+    repeated EntityMotion entity_motion_list = 1;
+    uint32 entry_id = 2;
+}
+
+message SceneEntityMoveScRsp {
+    uint32 retcode = 1;
+    ClientDownloadData download_data = 2;
+}
+
+message SceneEntityMoveScNotify {
+    uint32 entity_id = 1;
+    MotionInfo motion = 2;
+}
+
+message InteractPropCsReq {
+    uint32 prop_entity_id = 1;
+    uint32 interact_id = 2;
+    MotionInfo motion = 3;
+}
+
+message InteractPropScRsp {
+    uint32 retcode = 1;
+    uint32 prop_entity_id = 2;
+    uint32 prop_state = 3;
+}
+
+message SceneCastSkillCsReq {
+    uint32 cast_entity_id = 1;
+    uint32 skill_index = 2;
+    uint32 ability_target_entity_id = 3;
+    repeated uint32 hit_target_entity_id_list = 4;
+    repeated uint32 assist_monster_entity_id_list = 5;
+    MotionInfo target_motion = 6;
+}
+
+message SceneCastSkillScRsp {
+    uint32 retcode = 1;
+    SceneBattleInfo battle_info = 2;
+}
+
+message SceneEnterStageCsReq {
+    uint32 event_id = 1;
+}
+
+message SceneEnterStageScRsp {
+    uint32 retcode = 1;
+    SceneBattleInfo battle_info = 2;
+}
+
+message GetCurSceneInfoCsReq {
+    
+}
+
+message GetCurSceneInfoScRsp {
+    uint32 retcode = 1;
+    SceneInfo scene = 2;
+}
+
+message SceneEntityUpdateScNotify {
+    repeated SceneEntityInfo entity_list = 1;
+}
+
+message SceneEntityDisappearScNotify {
+    repeated uint32 entity_id_list = 1;
+}
+
+message SpringTransferCsReq {
+    uint32 plane_id = 1;
+    uint32 floor_id = 2;
+    uint32 prop_entity_id = 3;
+}
+
+message SpringTransferScRsp {
+    uint32 retcode = 1;
+}
+
+message UpdateBuffScNotify {
+    uint32 entity_id = 1;
+    BuffInfo buff = 2;
+}
+
+message DelBuffScNotify {
+    uint32 entity_id = 1;
+    uint32 buff_id = 2;
+}
+
+message SpringRefreshCsReq {
+    uint32 plane_id = 1;
+    uint32 floor_id = 2;
+    uint32 prop_entity_id = 3;
+}
+
+message SpringRefreshScRsp {
+    uint32 retcode = 1;
+}
+
+message LastSpringRefreshTimeNotify {
+    uint32 last_time = 1;
+}
+
+message ReturnLastTownCsReq {
+    
+}
+
+message ReturnLastTownScRsp {
+    uint32 retcode = 1;
+    SceneInfo scene = 2;
+}
+
+message EnterSectionCsReq {
+    uint32 section_id = 1;
+}
+
+message EnterSectionScRsp {
+    uint32 retcode = 1;
+}
+
+message SetCurInteractEntityCsReq {
+    uint32 entity_id = 1;
+}
+
+message SetCurInteractEntityScRsp {
+    uint32 retcode = 1;
+}
+
+message RecoverAllLineupCsReq {
+    
+}
+
+message RecoverAllLineupScRsp {
+    uint32 retcode = 1;
+}
+
+message SavePointsInfoNotify {
+    uint32 valid_times = 1;
+    uint32 refresh_time = 2;
+}
+
+message StartCocoonStageCsReq {
+    uint32 prop_entity_id = 1;
+    uint32 cocoon_id = 2;
+    uint32 wave = 3;
+    uint32 world_level = 4;
+}
+
+message StartCocoonStageScRsp {
+    uint32 retcode = 1;
+    SceneBattleInfo battle_info = 2;
+    uint32 prop_entity_id = 3;
+    uint32 cocoon_id = 4;
+    uint32 wave = 5;
+}
+
+message EntityBindPropCsReq {
+    bool is_bind = 1;
+    MotionInfo motion = 2;
+}
+
+message EntityBindPropScRsp {
+    uint32 retcode = 1;
+}
+
+message SetClientPausedCsReq {
+    bool paused = 1;
+}
+
+message SetClientPausedScRsp {
+    uint32 retcode = 1;
+    bool paused = 2;
+}
+
+message UpdateBuffGroupStartScNotify {
+    
+}
+
+message UpdateBuffGroupEndScNotify {
+    
+}
+
+message ActivateFarmElementCsReq {
+    uint32 entity_id = 1;
+    uint32 world_level = 2;
+}
+
+message ActivateFarmElementScRsp {
+    uint32 retcode = 1;
+    uint32 entity_id = 2;
+    uint32 world_level = 3;
+}
+
+message AvatarPresetHp {
+    uint32 avatar_id = 1;
+    uint32 preset_hp = 2;
+}
+
+message SpringRecoverConfig {
+    repeated AvatarPresetHp avatar_preset_hp_list = 1;
+    bool auto_recover_hp = 2;
+    uint32 default_hp = 3;
+}
+
+message HealPoolInfo {
+    uint32 heal_pool = 1;
+    uint32 refresh_time = 2;
+}
+
+message GetSpringRecoverDataCsReq {
+    
+}
+
+message GetSpringRecoverDataScRsp {
+    uint32 retcode = 1;
+    SpringRecoverConfig spring_recover_config = 2;
+    HealPoolInfo heal_pool_info = 3;
+}
+
+message SetSpringRecoverConfigCsReq {
+    SpringRecoverConfig spring_recover_config = 1;
+}
+
+message SetSpringRecoverConfigScRsp {
+    uint32 retcode = 1;
+    SpringRecoverConfig spring_recover_config = 2;
+}
+
+message SpringRecoverCsReq {
+    uint32 plane_id = 1;
+    uint32 floor_id = 2;
+    uint32 prop_entity_id = 3;
+}
+
+message SpringRecoverScRsp {
+    uint32 retcode = 1;
+    HealPoolInfo heal_pool_info = 2;
+}
+
+message HealPoolInfoNotify {
+    HealPoolInfo heal_pool_info = 1;
+}
+
+message SpringRecoverSingleAvatarCsReq {
+    uint32 plane_id = 1;
+    uint32 floor_id = 2;
+    uint32 prop_entity_id = 3;
+    AvatarType avatar_type = 4;
+    uint32 id = 5;
+    bool recover_full = 6;
+}
+
+message SpringRecoverSingleAvatarScRsp {
+    uint32 retcode = 1;
+    AvatarType avatar_type = 2;
+    uint32 id = 3;
+    uint32 hp = 4;
+}
+
+enum CmdSceneType {
+    CmdSceneTypeNone = 0;
+    CmdSceneEntityMoveCsReq = 1401;
+    CmdSceneEntityMoveScRsp = 1402;
+    CmdInteractPropCsReq = 1403;
+    CmdInteractPropScRsp = 1404;
+    CmdSceneCastSkillCsReq = 1405;
+    CmdSceneCastSkillScRsp = 1406;
+    CmdGetCurSceneInfoCsReq = 1407;
+    CmdGetCurSceneInfoScRsp = 1408;
+    CmdSceneEntityUpdateScNotify = 1409;
+    CmdSceneEntityDisappearScNotify = 1410;
+    CmdSceneEntityMoveScNotify = 1411;
+    CmdSpringTransferCsReq = 1414;
+    CmdSpringTransferScRsp = 1415;
+    CmdUpdateBuffScNotify = 1416;
+    CmdDelBuffScNotify = 1417;
+    CmdSpringRefreshCsReq = 1418;
+    CmdSpringRefreshScRsp = 1419;
+    CmdLastSpringRefreshTimeNotify = 1420;
+    CmdReturnLastTownCsReq = 1421;
+    CmdReturnLastTownScRsp = 1422;
+    CmdSceneEnterStageCsReq = 1423;
+    CmdSceneEnterStageScRsp = 1424;
+    CmdEnterSectionCsReq = 1427;
+    CmdEnterSectionScRsp = 1428;
+    CmdSetCurInteractEntityCsReq = 1431;
+    CmdSetCurInteractEntityScRsp = 1432;
+    CmdRecoverAllLineupCsReq = 1433;
+    CmdRecoverAllLineupScRsp = 1434;
+    CmdSavePointsInfoNotify = 1435;
+    CmdStartCocoonStageCsReq = 1436;
+    CmdStartCocoonStageScRsp = 1437;
+    CmdEntityBindPropCsReq = 1438;
+    CmdEntityBindPropScRsp = 1439;
+    CmdSetClientPausedCsReq = 1440;
+    CmdSetClientPausedScRsp = 1441;
+    CmdUpdateBuffGroupStartScNotify = 1442;
+    CmdUpdateBuffGroupEndScNotify = 1443;
+    CmdActivateFarmElementCsReq = 1445;
+    CmdActivateFarmElementScRsp = 1446;
+    CmdGetSpringRecoverDataCsReq = 1447;
+    CmdGetSpringRecoverDataScRsp = 1448;
+    CmdSetSpringRecoverConfigCsReq = 1449;
+    CmdSetSpringRecoverConfigScRsp = 1450;
+    CmdSpringRecoverCsReq = 1451;
+    CmdSpringRecoverScRsp = 1452;
+    CmdHealPoolInfoNotify = 1453;
+    CmdSpringRecoverSingleAvatarCsReq = 1454;
+    CmdSpringRecoverSingleAvatarScRsp = 1455;
+}

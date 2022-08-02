@@ -1,0 +1,196 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+import "cs.scene.proto";
+
+message MazeFloor {
+    uint32 floor_id = 1;
+    SceneInfo scene = 2;
+}
+
+message Maze {
+    uint32 id = 1;
+    MazeFloor floor = 2;
+    uint32 map_entry_id = 3;
+}
+
+message MazeAvatar {
+    uint32 base_avatar_id = 1;
+    uint32 left_hp = 2;
+    uint32 sp = 3;
+}
+
+message MazeMission {
+    uint32 sub_mission_id = 1;
+    MissionStatus status = 2;
+}
+
+message GetMazeCsReq {
+    
+}
+
+message GetMazeScRsp {
+    uint32 retcode = 1;
+    repeated Maze maze_list = 2;
+    uint32 cur_series_id = 3;
+    repeated uint32 finished_plane_list = 4;
+    repeated uint32 wait_plane_list = 5;
+    repeated uint32 taken_reward_list = 6;
+    repeated MazeAvatar avatar_list = 7;
+    repeated uint32 chosen_ability_list = 8;
+    repeated uint32 candidate_ability_list = 9;
+    repeated MazeMission maze_mission_list = 10;
+}
+
+message ChooseMazeSeriesCsReq {
+    uint32 series_id = 1;
+}
+
+message ChooseMazeSeriesScRsp {
+    uint32 retcode = 1;
+    uint32 series_id = 2;
+}
+
+message ChooseMazeAbilityCsReq {
+    uint32 ability_id = 1;
+}
+
+message ChooseMazeAbilityScRsp {
+    uint32 retcode = 1;
+    repeated uint32 ability_list = 2;
+}
+
+message EnterMazeCsReq {
+    uint32 entry_id = 1;
+    uint32 teleport_id = 2;
+}
+
+message EnterMazeScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+}
+
+message MazeBuffScNotify {
+    uint32 buff_id = 1;
+    MazeBuffOp op = 2;
+}
+
+message CastMazeSkillCsReq {
+    uint32 skill_id = 1;
+}
+
+message CastMazeSkillScRsp {
+    uint32 retcode = 1;
+}
+
+message MazePlaneEventScNotify {
+    ItemList item_data = 1;
+}
+
+message EnterMazeByServerScNotify {
+    Maze maze = 1;
+    EnterMazeReason reason = 2;
+}
+
+message MazePropState {
+    uint32 group_id = 1;
+    uint32 config_id = 2;
+    uint32 state = 3;
+}
+
+message MazeGroup {
+    uint32 group_id = 1;
+    uint32 modify_time = 2;
+}
+
+message GetMazeMapInfoCsReq {
+    uint32 entry_id = 1;
+}
+
+message GetMazeMapInfoScRsp {
+    uint32 retcode = 1;
+    uint32 entry_id = 2;
+    repeated uint32 lighten_section_list = 3;
+    repeated MazePropState maze_prop_list = 4;
+    repeated MazeGroup maze_group_list = 5;
+    uint32 opend_chest_num = 6;
+    repeated uint32 unlock_teleport_list = 7;
+}
+
+message GetMazeTimeOfDayCsReq {
+    
+}
+
+message GetMazeTimeOfDayScRsp {
+    uint32 retcode = 1;
+    map<uint32, uint32> maze_time_of_day_map = 2;
+}
+
+message SetMazeTimeOfDayCsReq {
+    uint32 plane_id = 1;
+    uint32 time_of_day_type = 2;
+}
+
+message SetMazeTimeOfDayScRsp {
+    uint32 retcode = 1;
+    uint32 plane_id = 2;
+    uint32 time_of_day_type = 3;
+}
+
+message DelMazeTimeOfDayCsReq {
+    uint32 plane_id = 1;
+}
+
+message DelMazeTimeOfDayScRsp {
+    uint32 retcode = 1;
+    uint32 plane_id = 2;
+}
+
+message ReturnStartAnchorCsReq {
+    uint32 entry_id = 1;
+}
+
+message ReturnStartAnchorScRsp {
+    uint32 retcode = 1;
+}
+
+enum CmdMazeType {
+    CmdMazeTypeNode = 0;
+    CmdGetMazeCsReq = 1001;
+    CmdGetMazeScRsp = 1002;
+    CmdChooseMazeSeriesCsReq = 1003;
+    CmdChooseMazeSeriesScRsp = 1004;
+    CmdChooseMazeAbilityCsReq = 1005;
+    CmdChooseMazeAbilityScRsp = 1006;
+    CmdEnterMazeCsReq = 1007;
+    CmdEnterMazeScRsp = 1008;
+    CmdMazeBuffScNotify = 1011;
+    CmdCastMazeSkillCsReq = 1012;
+    CmdCastMazeSkillScRsp = 1013;
+    CmdMazePlaneEventScNotify = 1014;
+    CmdEnterMazeByServerScNotify = 1015;
+    CmdGetMazeMapInfoCsReq = 1016;
+    CmdGetMazeMapInfoScRsp = 1017;
+    CmdGetMazeTimeOfDayCsReq = 1018;
+    CmdGetMazeTimeOfDayScRsp = 1019;
+    CmdSetMazeTimeOfDayCsReq = 1020;
+    CmdSetMazeTimeOfDayScRsp = 1021;
+    CmdDelMazeTimeOfDayCsReq = 1022;
+    CmdDelMazeTimeOfDayScRsp = 1023;
+    CmdReturnStartAnchorCsReq = 1024;
+    CmdReturnStartAnchorScRsp = 1025;
+}
+
+enum MazeBuffOp {
+    MAZE_BUFF_OP_NONE = 0;
+    MAZE_BUFF_OP_ADD = 1;
+    MAZE_BUFF_OP_DEL = 2;
+}
+
+enum EnterMazeReason {
+    REASON_NONE = 0;
+    REASON_CHALLENGE_TIMEOUT = 1;
+    REASON_ROGUE_TIMEOUT = 2;
+}

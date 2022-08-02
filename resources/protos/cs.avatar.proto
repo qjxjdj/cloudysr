@@ -1,0 +1,145 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.gamecore.proto";
+import "cs.common.proto";
+
+message GetAvatarDataCsReq {
+    bool is_get_all = 1;
+    repeated uint32 base_avatar_id_list = 2;
+}
+
+message EquipRelic {
+    uint32 type = 1;
+    uint32 relic_unique_id = 2;
+}
+
+message Avatar {
+    uint32 base_avatar_id = 1;
+    uint32 exp = 2;
+    uint32 level = 3;
+    uint32 promotion = 4;
+    uint32 rank = 5;
+    repeated AvatarSkillTree skilltree_list = 6;
+    uint32 equipment_unique_id = 7;
+    repeated EquipRelic equip_relic_list = 8;
+}
+
+message GetAvatarDataScRsp {
+    uint32 retcode = 1;
+    repeated Avatar avatar_list = 2;
+    bool is_all = 3;
+}
+
+message AvatarExpUpCsReq {
+    uint32 base_avatar_id = 1;
+    ItemCostData item_cost = 2;
+}
+
+message AvatarExpUpScRsp {
+    uint32 retcode = 1;
+    repeated PileItem return_item_list = 2;
+}
+
+message UnlockSkilltreeCsReq {
+    uint32 point_id = 1;
+    uint32 level = 2;
+    repeated ItemCost item_list = 3;
+}
+
+message UnlockSkilltreeScRsp {
+    uint32 retcode = 1;
+    uint32 base_avatar_id = 2;
+    uint32 point_id = 3;
+    uint32 level = 4;
+}
+
+message PromoteAvatarCsReq {
+    uint32 base_avatar_id = 1;
+    repeated ItemCost item_list = 2;
+}
+
+message PromoteAvatarScRsp {
+    uint32 retcode = 1;
+}
+
+message DressAvatarCsReq {
+    uint32 equipment_unique_id = 1;
+    uint32 base_avatar_id = 2;
+}
+
+message DressAvatarScRsp {
+    uint32 retcode = 1;
+}
+
+message TakeOffEquipmentCsReq {
+    uint32 base_avatar_id = 1;
+}
+
+message TakeOffEquipmentScRsp {
+    uint32 retcode = 1;
+}
+
+message AddAvatarScNotify {
+    uint32 base_avatar_id = 1;
+    ItemList reward = 2;
+    AddAvatarSrc src = 3;
+}
+
+message RankUpAvatarCsReq {
+    uint32 base_avatar_id = 1;
+    uint32 rank = 2;
+    ItemCostData cost_data = 3;
+}
+
+message RankUpAvatarScRsp {
+    uint32 retcode = 1;
+}
+
+message DressRelicAvatarCsReq {
+    uint32 relic_type = 1;
+    uint32 relic_unique_id = 2;
+    uint32 base_avatar_id = 3;
+}
+
+message DressRelicAvatarScRsp {
+    uint32 retcode = 1;
+}
+
+message TakeOffRelicCsReq {
+    uint32 relic_type = 1;
+    uint32 base_avatar_id = 2;
+}
+
+message TakeOffRelicScRsp {
+    uint32 retcode = 1;
+}
+
+enum CmdAvatarType {
+    CmdAvatarTypeNone = 0;
+    CmdGetAvatarDataCsReq = 301;
+    CmdGetAvatarDataScRsp = 302;
+    CmdAvatarExpUpCsReq = 303;
+    CmdAvatarExpUpScRsp = 304;
+    CmdUnlockSkilltreeCsReq = 305;
+    CmdUnlockSkilltreeScRsp = 306;
+    CmdPromoteAvatarCsReq = 307;
+    CmdPromoteAvatarScRsp = 308;
+    CmdDressAvatarCsReq = 309;
+    CmdDressAvatarScRsp = 310;
+    CmdTakeOffEquipmentCsReq = 311;
+    CmdTakeOffEquipmentScRsp = 312;
+    CmdAddAvatarScNotify = 313;
+    CmdRankUpAvatarCsReq = 314;
+    CmdRankUpAvatarScRsp = 315;
+    CmdDressRelicAvatarCsReq = 316;
+    CmdDressRelicAvatarScRsp = 317;
+    CmdTakeOffRelicCsReq = 318;
+    CmdTakeOffRelicScRsp = 319;
+}
+
+enum AddAvatarSrc {
+    ADD_AVATAR_SRC_NONE = 0;
+    ADD_AVATAR_SRC_GACHA = 1;
+}

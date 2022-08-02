@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package proto;
+
+message ArchiveData {
+    repeated uint32 item_id_list = 1;
+    repeated uint32 monster_template_id_list = 2;
+}
+
+message GetArchiveDataCsReq {
+    
+}
+
+message GetArchiveDataScRsp {
+    uint32 retcode = 1;
+    ArchiveData archive_data = 2;
+}
+
+message GetUpdatedArchiveDataCsReq {
+    
+}
+
+message GetUpdatedArchiveDataScRsp {
+    uint32 retcode = 1;
+    ArchiveData archive_data = 2;
+}
+
+enum CmdArchiveType {
+    CmdArchiveTypeNone = 0;
+    CmdGetArchiveDataCsReq = 2301;
+    CmdGetArchiveDataScRsp = 2302;
+    CmdGetUpdatedArchiveDataCsReq = 2303;
+    CmdGetUpdatedArchiveDataScRsp = 2304;
+}

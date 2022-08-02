@@ -1,0 +1,228 @@
+syntax = "proto3";
+
+package proto;
+
+message PlayerBasicInfo {
+    string nickname = 1;
+    uint32 level = 2;
+    uint32 exp = 3;
+    uint32 stamina = 4;
+    uint32 mcoin = 5;
+    uint32 hcoin = 6;
+    uint32 scoin = 7;
+    uint32 world_level = 8;
+}
+
+message BlackInfo {
+    uint32 begin_time = 1;
+    uint32 end_time = 2;
+    uint32 limit_level = 3;
+    uint32 ban_type = 4;
+}
+
+message VersionCount {
+    uint32 version = 1;
+    uint32 count = 2;
+}
+
+message ClientDownloadData {
+    uint32 version = 1;
+    uint32 time = 2;
+    bytes data = 3;
+}
+
+message ClientUploadData {
+    string tag = 1;
+    string value = 2;
+}
+
+message FeatureSwitchParam {
+    repeated uint32 param_list = 1;
+}
+
+message FeatureSwitchInfo {
+    FeatureSwitchType type = 1;
+    repeated FeatureSwitchParam switch_list = 2;
+    bool is_all_closed = 3;
+}
+
+enum AccountType {
+    ACCOUNT_MIHOYO_GUEST = 0;
+    ACCOUNT_MIHOYO = 1;
+    ACCOUNT_XIAOMI = 11;
+    ACCOUNT_COOLPAD = 12;
+    ACCOUNT_YYB = 13;
+    ACCOUNT_BILI = 14;
+    ACCOUNT_HUAWEI = 15;
+    ACCOUNT_MEIZU = 16;
+    ACCOUNT_360 = 17;
+    ACCOUNT_OPPO = 18;
+    ACCOUNT_VIVO = 19;
+    ACCOUNT_UC = 20;
+    ACCOUNT_WANDOJIA = 21;
+    ACCOUNT_LENOVO = 22;
+    ACCOUNT_JINLI = 23;
+    ACCOUNT_BAIDU = 25;
+    ACCOUNT_DANGLE = 26;
+    ACCOUNT_WEGAME = 27;
+    ACCOUNT_RPG_CUSTOM = 10000;
+}
+
+enum ChannelIdType {
+    CHANNEL_ID_NONE = 0;
+    CHANNEL_ID_MIHOYO = 1;
+    CHANNEL_ID_XIAOMI = 11;
+    CHANNEL_ID_COOLPAD = 12;
+    CHANNEL_ID_YYB = 13;
+    CHANNEL_ID_BILI = 14;
+    CHANNEL_ID_HUAWEI = 15;
+    CHANNEL_ID_MEIZU = 16;
+    CHANNEL_ID_360 = 17;
+    CHANNEL_ID_OPPO = 18;
+    CHANNEL_ID_VIVO = 19;
+    CHANNEL_ID_UC = 20;
+    CHANNEL_ID_WANDOJIA = 21;
+    CHANNEL_ID_LENOVO = 22;
+    CHANNEL_ID_JINLI = 23;
+    CHANNEL_ID_BAIDU = 25;
+    CHANNEL_ID_DANGLE = 26;
+    CHANNEL_ID_WEGAME = 27;
+}
+
+enum AvatarSlotType {
+    AVATAR_SLOT_1 = 0;
+    AVATAR_SLOT_2 = 1;
+    AVATAR_SLOT_3 = 2;
+}
+
+enum ItemType {
+    ITEM_TYPE_NONE = 0;
+    ITEM_AVATAR_CARD = 1;
+    ITEM_EQUIPMENT = 2;
+    ITEM_MATERIAL = 3;
+    ITEM_AVATAR_EXP = 4;
+    ITEM_RELIC = 5;
+}
+
+enum VirtualItemType {
+    VIRTUAL_ITEM_NONE = 0;
+    VIRTUAL_ITEM_HCOIN = 1;
+    VIRTUAL_ITEM_SCOIN = 2;
+    VIRTUAL_ITEM_MCOIN = 3;
+    VIRTUAL_ITEM_STAMINA = 11;
+    VIRTUAL_ITEM_EXP = 22;
+    VIRTUAL_ITEM_ROGUE_COIN = 31;
+    VIRTUAL_ITEM_ROGUE_STAMINA = 32;
+    VIRTUAL_ITEM_ROGUE_EXPLORE_EXP = 33;
+    VIRTUAL_ITEM_ACHIEVEMENT_EXP = 41;
+    VIRTUAL_ITEM_WARRIOR_EXP = 190;
+    VIRTUAL_ITEM_ROGUE_EXP = 191;
+    VIRTUAL_ITEM_MAGE_EXP = 192;
+    VIRTUAL_ITEM_SHAMAN_EXP = 193;
+    VIRTUAL_ITEM_WARLOCK_EXP = 194;
+    VIRTUAL_ITEM_KNIGHT_EXP = 195;
+    VIRTUAL_ITEM_PRIEST_EXP = 196;
+}
+
+enum BlackLimitLevel {
+    BLACK_LIMIT_LEVEL_ALL = 0;
+}
+
+enum AreaType {
+    AREA_NONE = 0;
+    AREA_CN = 1;
+    AREA_JP = 2;
+    AREA_ASIA = 3;
+    AREA_WEST = 4;
+    AREA_KR = 5;
+    AREA_OVERSEAS = 6;
+}
+
+enum EntityType {
+    ENTITY_NONE = 0;
+    ENTITY_AVATAR = 1;
+    ENTITY_MONSTER = 2;
+    ENTITY_NPC = 3;
+    ENTITY_PROP = 4;
+    ENTITY_TRIGGER = 5;
+    ENTITY_ENV = 6;
+}
+
+enum LanguageType {
+    LANGUAGE_NONE = 0;
+    LANGUAGE_SC = 1;
+    LANGUAGE_TC = 2;
+    LANGUAGE_EN = 3;
+    LANGUAGE_KR = 4;
+    LANGUAGE_JP = 5;
+    LANGUAGE_FR = 6;
+    LANGUAGE_DE = 7;
+    LANGUAGE_ES = 8;
+    LANGUAGE_PT = 9;
+    LANGUAGE_RU = 10;
+    LANGUAGE_TH = 11;
+    LANGUAGE_VI = 12;
+    LANGUAGE_ID = 13;
+}
+
+enum PlatformType {
+    EDITOR = 0;
+    IOS = 1;
+    ANDROID = 2;
+    PC = 3;
+}
+
+enum ReloginType {
+    NO_KICK = 0;
+    FORCE_KICK = 1;
+    IDLE_KICK = 2;
+}
+
+enum AvatarType {
+    AVATAR_TYPE_NONE = 0;
+    AVATAR_TRIAL_TYPE = 1;
+    AVATAR_LIMIT_TYPE = 2;
+    AVATAR_FORMAL_TYPE = 3;
+}
+
+enum HeroBasicType {
+    None = 0;
+    BoyWarrior = 8001;
+    GirlWarrior = 8002;
+    BoyKnight = 8003;
+    GirlKnight = 8004;
+    BoyRogue = 8005;
+    GirlRogue = 8006;
+    BoyMage = 8007;
+    GirlMage = 8008;
+    BoyShaman = 8009;
+    GirlShaman = 8010;
+    BoyWarlock = 8011;
+    GirlWarlock = 8012;
+    BoyPriest = 8013;
+    GirlPriest = 8014;
+}
+
+enum Gender {
+    GenderNone = 0;
+    GenderMan = 1;
+    GenderWoman = 2;
+}
+
+enum ProductType {
+    PRODUCT_NONE = 0;
+    PRODUCT_NORMAL = 1;
+    PRODUCT_LIMIT = 2;
+}
+
+enum ProductGiftType {
+    PRODUCT_GIFT_NONE = 0;
+    PRODUCT_GIFT_HCOIN = 1;
+    PRODUCT_GIFT_SUBSCRIPTION = 2;
+}
+
+enum FeatureSwitchType {
+    FEATURE_SWITCH_NONE = 0;
+    FEATURE_SWITCH_SHOP = 1;
+    FEATURE_SWITCH_LINEUP_NAME = 2;
+}

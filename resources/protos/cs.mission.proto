@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message GetMissionDataCsReq {
+    
+}
+
+message Mission {
+    uint32 id = 1;
+    MissionStatus status = 2;
+    uint32 progress = 3;
+}
+
+message GetMissionDataScRsp {
+    uint32 retcode = 1;
+    repeated Mission mission_list = 2;
+}
+
+message FinishTalkMissionCsReq {
+    string talk_str = 1;
+}
+
+message FinishTalkMissionScRsp {
+    uint32 retcode = 1;
+    string talk_str = 2;
+}
+
+message MissionRewardScNotify {
+    uint32 main_mission_id = 1;
+    ItemList reward = 2;
+}
+
+message SubMissionRewardScNotify {
+    uint32 sub_mission_id = 1;
+    ItemList reward = 2;
+}
+
+message SyncTaskCsReq {
+    string key = 1;
+}
+
+message SyncTaskScRsp {
+    uint32 retcode = 1;
+    string key = 2;
+}
+
+message DailyTask {
+    uint32 main_mission_id = 1;
+    bool is_finished = 2;
+}
+
+message DailyTaskDataScNotify {
+    bool is_taken_extra_reward = 1;
+    uint32 finished_num = 2;
+    repeated DailyTask daily_task_list = 3;
+}
+
+message TakeDailyTaskExtraRewardCsReq {
+    
+}
+
+message TakeDailyTaskExtraRewardScRsp {
+    uint32 retcode = 1;
+    ItemList reward = 2;
+}
+
+message DailyTaskRewardScNotify {
+    uint32 count = 1;
+    ItemList reward = 2;
+}
+
+message MissionGroupWarnScNotify {
+    repeated uint32 group_id_list = 1;
+}
+
+message FinishCosumeItemMissionCsReq {
+    uint32 sub_mission_id = 1;
+}
+
+message FinishCosumeItemMissionScRsp {
+    uint32 retcode = 1;
+    uint32 sub_mission_id = 2;
+}
+
+message GetMissionEventDataCsReq {
+    
+}
+
+message GetMissionEventDataScRsp {
+    uint32 retcode = 1;
+    repeated Mission mission_event_list = 2;
+    uint32 challenge_event_id = 3;
+}
+
+message MissionEventRewardScNotify {
+    uint32 mission_event_id = 1;
+    ItemList reward = 2;
+}
+
+message AcceptMissionEventCsReq {
+    uint32 mission_event_id = 1;
+}
+
+message AcceptMissionEventScRsp {
+    uint32 retcode = 1;
+    Mission mission_event = 2;
+}
+
+message GetMissionStatusCsReq {
+    repeated uint32 main_mission_id_list = 1;
+    repeated uint32 sub_mission_id_list = 2;
+    repeated uint32 mission_event_id_list = 3;
+}
+
+message GetMissionStatusScRsp {
+    uint32 retcode = 1;
+    repeated uint32 finished_main_mission_id_list = 2;
+    repeated uint32 unfinished_main_mission_id_list = 3;
+    repeated Mission sub_mission_status_list = 4;
+    repeated Mission mission_event_status_list = 5;
+}
+
+message InterruptMissionEventCsReq {
+    uint32 mission_event_id = 1;
+}
+
+message InterruptMissionEventScRsp {
+    uint32 retcode = 1;
+    uint32 mission_event_id = 2;
+}
+
+message SetMissionEventProgressCsReq {
+    uint32 mission_event_id = 1;
+    uint32 progress = 2;
+}
+
+message SetMissionEventProgressScRsp {
+    uint32 retcode = 1;
+}
+
+enum CmdMissionType {
+    CmdMissionTypeNone = 0;
+    CmdGetMissionDataCsReq = 1201;
+    CmdGetMissionDataScRsp = 1202;
+    CmdFinishTalkMissionCsReq = 1203;
+    CmdFinishTalkMissionScRsp = 1204;
+    CmdMissionRewardScNotify = 1205;
+    CmdSyncTaskCsReq = 1206;
+    CmdSyncTaskScRsp = 1207;
+    CmdDailyTaskDataScNotify = 1208;
+    CmdTakeDailyTaskExtraRewardCsReq = 1209;
+    CmdTakeDailyTaskExtraRewardScRsp = 1210;
+    CmdDailyTaskRewardScNotify = 1211;
+    CmdMissionGroupWarnScNotify = 1212;
+    CmdFinishCosumeItemMissionCsReq = 1213;
+    CmdFinishCosumeItemMissionScRsp = 1214;
+    CmdGetMissionEventDataCsReq = 1215;
+    CmdGetMissionEventDataScRsp = 1216;
+    CmdMissionEventRewardScNotify = 1217;
+    CmdAcceptMissionEventCsReq = 1218;
+    CmdAcceptMissionEventScRsp = 1219;
+    CmdGetMissionStatusCsReq = 1220;
+    CmdGetMissionStatusScRsp = 1221;
+    CmdInterruptMissionEventCsReq = 1222;
+    CmdInterruptMissionEventScRsp = 1223;
+    CmdSetMissionEventProgressCsReq = 1224;
+    CmdSetMissionEventProgressScRsp = 1225;
+    CmdSubMissionRewardScNotify = 1226;
+}

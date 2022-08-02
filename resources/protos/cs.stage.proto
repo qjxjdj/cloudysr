@@ -1,0 +1,41 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.gamecore.proto";
+
+message Stage {
+    uint32 id = 1;
+    uint32 win_times = 2;
+    uint32 challenge_value = 3;
+}
+
+message GetStageDataCsReq {
+    repeated uint32 stage_id_list = 1;
+}
+
+message GetStageDataScRsp {
+    uint32 retcode = 1;
+    repeated Stage stage_list = 2;
+    bool is_all = 3;
+}
+
+message StageBeginCsReq {
+    uint32 stage_id = 1;
+    uint32 lineup_index = 2;
+}
+
+message StageBeginScRsp {
+    uint32 retcode = 1;
+    uint32 logic_random_seed = 2;
+    uint32 stage_id = 3;
+    repeated BattleAvatar battle_avatar_list = 4;
+}
+
+enum CmdStageType {
+    CmdStageTypeNone = 0;
+    CmdGetStageDataCsReq = 201;
+    CmdGetStageDataScRsp = 202;
+    CmdStageBeginCsReq = 203;
+    CmdStageBeginScRsp = 204;
+}

@@ -1,0 +1,645 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+import "cs.maze.proto";
+
+message RogueBuff {
+    uint32 buff_id = 1;
+    uint32 level = 2;
+}
+
+message RogueBuffList {
+    repeated RogueBuff buff_list = 1;
+}
+
+message RogueRoom {
+    uint32 room_id = 1;
+    RogueRoomStatus status = 2;
+    uint32 site_id = 3;
+}
+
+message RogueLevel {
+    uint32 level_id = 1;
+    uint32 map_id = 2;
+    repeated RogueRoom room_list = 3;
+    uint32 cur_room_id = 4;
+}
+
+message RogueBless {
+    uint32 bless_id = 1;
+    uint32 level = 2;
+}
+
+message RogueBlessInfo {
+    repeated RogueBless bless_list = 1;
+    uint32 active_bless_id = 2;
+    RogueBless bless = 3;
+    uint32 monster_kill_count = 4;
+}
+
+message RogueBuffSelectInfo {
+    uint32 roll_buff_count = 1;
+    uint32 rogue_coin = 2;
+    uint32 left_select_count = 3;
+    repeated RogueBuff maze_buff_list = 4;
+    uint32 roll_buff_max_count = 5;
+    ItemCostData roll_buff_cost_data = 6;
+}
+
+message RogueShopBuff {
+    RogueBuff buff_info = 1;
+    uint32 total_count = 2;
+    uint32 left_count = 3;
+}
+
+message RogueShopItem {
+    uint32 item_id = 1;
+    uint32 total_count = 2;
+    uint32 left_count = 3;
+    ItemCostData cost_data = 4;
+}
+
+message RogueShopInfo {
+    uint32 rogue_shop_id = 1;
+    repeated RogueShopBuff shop_buff_list = 2;
+    repeated RogueShopItem shop_item_list = 3;
+}
+
+message RogueAppraisalRecord {
+    uint32 group_id = 1;
+    uint32 config_id = 2;
+    uint32 appraisal_count = 3;
+}
+
+message RogueAppraisalInfo {
+    repeated RogueAppraisalRecord appraisal_list = 1;
+}
+
+message RogueAppraisalItem {
+    uint32 item_id = 1;
+    float succ_ratio = 2;
+    float perfect_ratio = 3;
+}
+
+message RogueAppraisalItemInfo {
+    repeated RogueAppraisalItem item_list = 1;
+}
+
+message RogueQuest {
+    uint32 rogue_quest_id = 1;
+    int32 world_level = 2;
+    uint32 progress = 3;
+    RogueQuestStatus status = 4;
+    uint32 begin_time = 5;
+    uint32 end_time = 6;
+    RogueQuestType type = 7;
+}
+
+message RogueInfo {
+    RogueStatus status = 1;
+    RogueLevel level_info = 2;
+    repeated RogueRoom room_list = 3;
+    uint32 rogue_coin = 4;
+    repeated uint32 base_avatar_id_list = 5;
+    uint32 rogue_stamina = 6;
+    uint32 revive_count = 7;
+    uint32 recover_stamina_count = 8;
+    bool is_record_saved = 9;
+    repeated uint32 explore_reward_list = 10;
+    uint32 season_id = 11;
+    uint32 begin_time = 12;
+    uint32 end_time = 13;
+    bool is_win = 14;
+    repeated RogueBuff maze_buff_list = 15;
+    repeated RogueBuff extra_buff_list = 16;
+    uint32 rogue_explore_exp = 17;
+    uint32 rogue_explore_lv = 18;
+    RogueBuffSelectInfo buff_select_info = 19;
+    bool is_pick_avatar = 20;
+    RogueBlessInfo bless_info = 21;
+    uint32 buff_score = 22;
+    RogueAppraisalInfo appraisal_info = 23;
+    int32 world_level = 24;
+    uint32 rogue_gacha_item_num_on_enter = 25;
+    repeated RogueQuest rogue_quest_list = 26;
+}
+
+message RogueRecord {
+    uint32 slot = 1;
+    repeated uint32 avatar_list = 2;
+    repeated RogueBuff maze_buff_list = 3;
+    string name = 4;
+    uint32 score = 5;
+}
+
+message RogueChallengeInfo {
+    bool is_in_challenge = 1;
+    repeated uint32 challenge_reward_list = 3;
+    uint32 histroy_max_score = 4;
+    repeated RogueRecord record_list = 5;
+    uint32 record_slot = 6;
+}
+
+message RogueFinishInfo {
+    bool is_win = 1;
+    ItemList reward = 2;
+    repeated uint32 explore_quest_list = 3;
+    bool can_save = 4;
+    uint32 buff_score = 5;
+    uint32 rogue_gacha_item_num = 6;
+}
+
+message RogueChallengeSpecialScore {
+    uint32 score_id = 1;
+    uint32 score = 2;
+}
+
+message RogueChallengeScoreInfo {
+    uint32 total_score = 1;
+    uint32 turn_score = 2;
+    uint32 damage_score = 3;
+    repeated RogueChallengeSpecialScore special_score_list = 4;
+}
+
+message RogueChallengeFinishInfo {
+    bool is_win = 1;
+    uint32 rounds = 2;
+    float damage = 3;
+    ItemList reward = 4;
+    repeated uint32 challenge_quest_list = 6;
+    RogueChallengeScoreInfo score_info = 10;
+}
+
+message RogueDialog {
+    uint32 rogue_dialog_id = 1;
+    RogueDialogStatus status = 2;
+}
+
+message RogueGachaGoods {
+    uint32 gacha_goods_id = 1;
+    uint32 status = 2;
+}
+
+message RogueGachaInfo {
+    uint32 gacha_pool_id = 1;
+    repeated RogueGachaGoods goods_list = 2;
+    repeated uint32 wish_id_list = 3;
+    uint32 cur_wish_id = 4;
+    uint32 gacha_count = 5;
+    uint32 total_count = 6;
+}
+
+message GetRogueInfoCsReq {
+    
+}
+
+message GetRogueInfoScRsp {
+    uint32 retcode = 1;
+    RogueInfo rogue_info = 2;
+    RogueChallengeInfo rogue_challenge_info = 3;
+}
+
+message StartRogueCsReq {
+    repeated uint32 base_avatar_id_list = 1;
+}
+
+message StartRogueScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+    RogueInfo rogue_info = 3;
+}
+
+message EnterRogueCsReq {
+    
+}
+
+message EnterRogueScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+    RogueInfo rogue_info = 3;
+}
+
+message LeaveRogueCsReq {
+    
+}
+
+message LeaveRogueScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+}
+
+message SyncRogueBuffSelectInfoScNotify {
+    RogueBuffSelectInfo buff_select_info = 1;
+}
+
+message SelectRogueBuffCsReq {
+    uint32 maze_buff_id = 2;
+}
+
+message SelectRogueBuffScRsp {
+    uint32 retcode = 1;
+    uint32 god_plot_id = 2;
+    RogueBuffSelectInfo buff_select_info = 3;
+}
+
+message RollRogueBuffCsReq {
+    
+}
+
+message RollRogueBuffScRsp {
+    uint32 retcode = 1;
+    RogueBuffSelectInfo buff_select_info = 2;
+}
+
+message EnterNextRogueRoomScNotify {
+    Maze maze = 1;
+    RogueRoom room = 2;
+    RogueAppraisalInfo appraisal_info = 3;
+}
+
+message SyncRogueFinishScNotify {
+    RogueFinishInfo finish_info = 1;
+}
+
+message PickRogueAvatarCsReq {
+    uint32 base_avatar_id = 1;
+    uint32 prop_entity_id = 2;
+    repeated uint32 base_avatar_id_list = 3;
+}
+
+message PickRogueAvatarScRsp {
+    uint32 retcode = 1;
+    uint32 base_avatar_id = 2;
+    repeated uint32 base_avatar_id_list = 3;
+}
+
+message AddRogueBuffScNotify {
+    RogueBuff maze_buff_info = 1;
+}
+
+message ReviveRogueAvatarCsReq {
+    uint32 base_avatar_id = 1;
+}
+
+message ReviveRogueAvatarScRsp {
+    uint32 retcode = 1;
+    uint32 base_avatar_id = 2;
+    uint32 rogue_stamina = 3;
+    uint32 revive_count = 4;
+}
+
+message SaveRogueRecordCsReq {
+    bool save = 1;
+    uint32 slot = 2;
+    string name = 3;
+}
+
+message SaveRogueRecordScRsp {
+    uint32 retcode = 1;
+    RogueRecord record = 2;
+}
+
+message RecoverRogueStaminaCsReq {
+    uint32 prop_entity_id = 1;
+}
+
+message RecoverRogueStaminaScRsp {
+    uint32 retcode = 1;
+    uint32 rogue_stamina = 2;
+    uint32 rogue_coin = 3;
+    uint32 recover_stamina_count = 4;
+}
+
+message StartRogueChallengeCsReq {
+    uint32 record_slot = 1;
+}
+
+message StartRogueChallengeScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+    RogueChallengeInfo rogue_challenge_info = 3;
+}
+
+message LeaveRogueChallengeCsReq {
+    
+}
+
+message LeaveRogueChallengeScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+    RogueChallengeInfo rogue_challenge_info = 3;
+}
+
+message SyncRogueChallengeFinishScNotify {
+    RogueChallengeFinishInfo finish_info = 1;
+}
+
+message QuitRogueCsReq {
+    
+}
+
+message QuitRogueScRsp {
+    uint32 retcode = 1;
+    RogueFinishInfo finish_info = 2;
+}
+
+message AppraisalRogueStoneCsReq {
+    uint32 stone_item_id = 1;
+}
+
+message AppraisalRogueStoneScRsp {
+    uint32 retcode = 1;
+    RogueStoneAppraisalResult result = 2;
+    ItemList reward = 3;
+    RogueBuff maze_buff_info = 4;
+    RogueAppraisalRecord appraisal_record = 5;
+    RogueAppraisalItemInfo item_info = 6;
+}
+
+message SyncRogueSeasonFinishScNotify {
+    RogueFinishInfo finish_info = 2;
+}
+
+message SyncRogueInfoChangeScNotify {
+    uint32 recover_stamina_count = 1;
+    uint32 rogue_explore_lv = 2;
+}
+
+message AddRogueExtraBuffScNotify {
+    RogueBuff extra_buff_info = 1;
+}
+
+message EnterRogueMapRoomCsReq {
+    uint32 room_id = 1;
+}
+
+message EnterRogueMapRoomScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+    uint32 cur_room_id = 3;
+}
+
+message EnterRogueNextLevelCsReq {
+    
+}
+
+message EnterRogueNextLevelScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+    RogueLevel level_info = 3;
+    RogueAppraisalInfo appraisal_info = 4;
+}
+
+message SyncRogueMapRoomScNotify {
+    uint32 level_id = 1;
+    uint32 map_id = 2;
+    RogueRoom room_info = 3;
+}
+
+message SyncRoguePickAvatarScNotify {
+    
+}
+
+message SetRogueBlessCsReq {
+    uint32 bless_id = 1;
+}
+
+message SetRogueBlessScRsp {
+    uint32 retcode = 1;
+    uint32 bless_id = 2;
+}
+
+message SyncRogueBlessScNotify {
+    RogueBlessInfo bless_info = 1;
+    bool level_up_max = 2;
+}
+
+message GetRogueShopInfoCsReq {
+    
+}
+
+message GetRogueShopInfoScRsp {
+    uint32 retcode = 1;
+    RogueShopInfo rogue_shop_info = 2;
+}
+
+message BuyRogueShopBuffCsReq {
+    uint32 buff_id = 1;
+    uint32 buy_count = 2;
+}
+
+message BuyRogueShopBuffScRsp {
+    uint32 retcode = 1;
+    RogueBuff buy_rogue_buff = 2;
+    uint32 buy_count = 3;
+    RogueShopBuff rogue_shop_buff = 4;
+}
+
+message BuyRogueShopItemCsReq {
+    uint32 item_id = 1;
+    uint32 buy_count = 2;
+}
+
+message BuyRogueShopItemScRsp {
+    uint32 retcode = 1;
+    uint32 item_id = 2;
+    uint32 buy_count = 3;
+    RogueShopItem rogue_shop_item = 4;
+    RogueShopInfo rogue_shop_info = 5;
+}
+
+message FinishRogueDialogueGroupCsReq {
+    uint32 dialogue_group_id = 1;
+}
+
+message FinishRogueDialogueGroupScRsp {
+    uint32 retcode = 1;
+}
+
+message UnlockRogueRoomCsReq {
+    uint32 room_id = 1;
+}
+
+message UnlockRogueRoomScRsp {
+    uint32 retcode = 1;
+}
+
+message GetRogueGachaInfoCsReq {
+    
+}
+
+message GetRogueGachaInfoScRsp {
+    uint32 retcode = 1;
+    RogueGachaInfo rogue_gacha_info = 2;
+}
+
+message SetRogueGachaWishListCsReq {
+    uint32 wish_list_id = 1;
+}
+
+message SetRogueGachaWishListScRsp {
+    uint32 retcode = 1;
+    RogueGachaInfo rogue_gacha_info = 2;
+}
+
+message DoRogueGachaCsReq {
+    uint32 count = 1;
+}
+
+message DoRogueGachaScRsp {
+    uint32 retcode = 1;
+    ItemList item_list = 2;
+    RogueGachaInfo rogue_gacha_info = 3;
+}
+
+message SyncRogueGachaRefreshScNotify {
+    RogueGachaInfo rogue_gacha_info = 1;
+}
+
+message GetRogueAppraisalItemInfoCsReq {
+    
+}
+
+message GetRogueAppraisalItemInfoScRsp {
+    uint32 retcode = 1;
+    RogueAppraisalItemInfo item_info = 2;
+}
+
+message SyncRogueMiracleGetItemScNotify {
+    ItemList item_data = 1;
+}
+
+message SyncRogueQuestScNotify {
+    RogueQuest rogue_quest = 1;
+}
+
+message GetRogueQuestRewardCsReq {
+    uint32 rogue_quest_id = 1;
+    RogueQuestType type = 2;
+}
+
+message GetRogueQuestRewardScRsp {
+    uint32 retcode = 1;
+    ItemList reward = 2;
+    RogueQuest rogue_quest = 3;
+}
+
+enum CmdRogueType {
+    CmdRogueTypeNone = 0;
+    CmdGetRogueInfoCsReq = 1801;
+    CmdGetRogueInfoScRsp = 1802;
+    CmdStartRogueCsReq = 1803;
+    CmdStartRogueScRsp = 1804;
+    CmdEnterRogueCsReq = 1805;
+    CmdEnterRogueScRsp = 1806;
+    CmdLeaveRogueCsReq = 1807;
+    CmdLeaveRogueScRsp = 1808;
+    CmdSyncRogueBuffSelectInfoScNotify = 1809;
+    CmdSelectRogueBuffCsReq = 1810;
+    CmdSelectRogueBuffScRsp = 1811;
+    CmdRollRogueBuffCsReq = 1812;
+    CmdRollRogueBuffScRsp = 1813;
+    CmdEnterNextRogueRoomScNotify = 1814;
+    CmdSyncRogueFinishScNotify = 1815;
+    CmdPickRogueAvatarCsReq = 1816;
+    CmdPickRogueAvatarScRsp = 1817;
+    CmdAddRogueBuffScNotify = 1818;
+    CmdReviveRogueAvatarCsReq = 1819;
+    CmdReviveRogueAvatarScRsp = 1820;
+    CmdSaveRogueRecordCsReq = 1821;
+    CmdSaveRogueRecordScRsp = 1822;
+    CmdRecoverRogueStaminaCsReq = 1823;
+    CmdRecoverRogueStaminaScRsp = 1824;
+    CmdStartRogueChallengeCsReq = 1827;
+    CmdStartRogueChallengeScRsp = 1828;
+    CmdLeaveRogueChallengeCsReq = 1829;
+    CmdLeaveRogueChallengeScRsp = 1830;
+    CmdSyncRogueChallengeFinishScNotify = 1831;
+    CmdQuitRogueCsReq = 1832;
+    CmdQuitRogueScRsp = 1833;
+    CmdAppraisalRogueStoneCsReq = 1834;
+    CmdAppraisalRogueStoneScRsp = 1835;
+    CmdSyncRogueSeasonFinishScNotify = 1836;
+    CmdSyncRogueInfoChangeScNotify = 1837;
+    CmdAddRogueExtraBuffScNotify = 1838;
+    CmdEnterRogueMapRoomCsReq = 1839;
+    CmdEnterRogueMapRoomScRsp = 1840;
+    CmdEnterRogueNextLevelCsReq = 1841;
+    CmdEnterRogueNextLevelScRsp = 1842;
+    CmdSyncRogueMapRoomScNotify = 1843;
+    CmdSyncRoguePickAvatarScNotify = 1844;
+    CmdSetRogueBlessCsReq = 1845;
+    CmdSetRogueBlessScRsp = 1846;
+    CmdSyncRogueBlessScNotify = 1847;
+    CmdGetRogueShopInfoCsReq = 1848;
+    CmdGetRogueShopInfoScRsp = 1849;
+    CmdBuyRogueShopBuffCsReq = 1850;
+    CmdBuyRogueShopBuffScRsp = 1851;
+    CmdFinishRogueDialogueGroupCsReq = 1852;
+    CmdFinishRogueDialogueGroupScRsp = 1853;
+    CmdUnlockRogueRoomCsReq = 1856;
+    CmdUnlockRogueRoomScRsp = 1857;
+    CmdGetRogueGachaInfoCsReq = 1858;
+    CmdGetRogueGachaInfoScRsp = 1859;
+    CmdSetRogueGachaWishListCsReq = 1860;
+    CmdSetRogueGachaWishListScRsp = 1861;
+    CmdDoRogueGachaCsReq = 1862;
+    CmdDoRogueGachaScRsp = 1863;
+    CmdSyncRogueGachaRefreshScNotify = 1864;
+    CmdBuyRogueShopItemCsReq = 1865;
+    CmdBuyRogueShopItemScRsp = 1866;
+    CmdGetRogueAppraisalItemInfoCsReq = 1867;
+    CmdGetRogueAppraisalItemInfoScRsp = 1868;
+    CmdSyncRogueMiracleGetItemScNotify = 1869;
+    CmdSyncRogueQuestScNotify = 1870;
+    CmdGetRogueQuestRewardCsReq = 1871;
+    CmdGetRogueQuestRewardScRsp = 1872;
+}
+
+enum RogueStatus {
+    ROGUE_STATUS_NONE = 0;
+    ROGUE_STATUS_DOING = 1;
+    ROGUE_STATUS_PENDING = 2;
+    ROGUE_STATUS_FINISH = 3;
+}
+
+enum RogueRoomStatus {
+    ROGUE_ROOM_STATUS_NONE = 0;
+    ROGUE_ROOM_STATUS_LOCK = 1;
+    ROGUE_ROOM_STATUS_UNLOCK = 2;
+    ROGUE_ROOM_STATUS_PLAY = 3;
+    ROGUE_ROOM_STATUS_FINISH = 4;
+}
+
+enum RogueStoneAppraisalResult {
+    ROGUE_STONE_APPRAISAL_NONE = 0;
+    ROGUE_STONE_APPRAISAL_FAILED = 1;
+    ROGUE_STONE_APPRAISAL_NORMAL = 2;
+    ROGUE_STONE_APPRAISAL_PERFECT = 3;
+}
+
+enum RogueDialogStatus {
+    ROGUE_DIALOG_STATUS_NONE = 0;
+    ROGUE_DIALOG_STATUS_LOCK = 1;
+    ROGUE_DIALOG_STATUS_UNLOCK = 2;
+}
+
+enum RogueGachaGoodsStatus {
+    ROGUE_GACHA_GOODS_DEFAULT = 0;
+    ROGUE_GACHA_GOODS_UP = 1;
+    ROGUE_GACHA_GOODS_EMPTY = 2;
+}
+
+enum RogueQuestStatus {
+    ROGUE_QUEST_STATUS_NONE = 0;
+    ROGUE_QUEST_STATUS_DOING = 1;
+    ROGUE_QUEST_STATUS_REWARD = 2;
+    ROGUE_QUEST_STATUS_FINISH = 3;
+}
+
+enum RogueQuestType {
+    ROGUE_QUEST_TYPE_EXPLORE = 0;
+    ROGUE_QUEST_TYPE_CHALLENGE = 1;
+}

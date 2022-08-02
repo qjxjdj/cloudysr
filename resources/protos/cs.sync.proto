@@ -1,0 +1,66 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.define.proto";
+import "cs.avatar.proto";
+import "cs.item.proto";
+import "cs.quest.proto";
+import "cs.mission.proto";
+import "cs.player.proto";
+import "cs.message.proto";
+
+message BasicModuleSync {
+    uint32 stamina = 1;
+    uint32 week_cocoon_finished_count = 2;
+}
+
+message RogueModuleSync {
+    uint32 rogue_coin = 1;
+    uint32 rogue_stamina = 2;
+    uint32 rogue_explore_exp = 3;
+}
+
+message AvatarSync {
+    repeated Avatar avatar_list = 1;
+}
+
+message MissionSync {
+    repeated Mission mission_list = 1;
+    repeated uint32 finished_main_mission_id_list = 2;
+    repeated uint32 del_mission_id_list = 3;
+    repeated uint32 del_main_mission_id_list = 4;
+}
+
+message MissionEventSync {
+    repeated Mission mission_event_list = 1;
+    repeated uint32 finished_mission_event_id_list = 2;
+    repeated uint32 del_mission_event_id_list = 3;
+}
+
+message PlayerSyncScNotify {
+    PlayerBasicInfo basic_info = 1;
+    AvatarSync avatar_sync = 2;
+    repeated Equipment equipment_list = 3;
+    repeated uint32 del_equipment_list = 4;
+    repeated Material material_list = 5;
+    repeated Quest quest_list = 6;
+    MissionSync mission_sync = 7;
+    BasicModuleSync basic_module_sync = 8;
+    repeated Relic relic_list = 9;
+    repeated uint32 del_relic_list = 10;
+    MissionEventSync mission_event_sync = 11;
+    repeated HeroBasicTypeInfo basic_type_info_list = 12;
+    repeated Material rogue_item_list = 13;
+    RogueModuleSync rogue_module_sync = 14;
+    repeated WaitDelResource wait_del_resource_list = 15;
+    uint32 total_achievement_exp = 16;
+    repeated uint32 new_item_hint_list = 17;
+    repeated GroupStatus group_status_list = 18;
+    repeated SectionStatus section_status_list = 19;
+}
+
+enum CmdPlayerSyncType {
+    CmdPlayerSyncNone = 0;
+    CmdPlayerSyncScNotify = 601;
+}

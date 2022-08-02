@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.gamecore.proto";
+import "cs.common.proto";
+
+message PVEBattleResultCsReq {
+    uint32 stage_id = 1;
+    repeated BattleOp op_list = 2;
+    bytes turn_snapshot_hash = 3;
+    uint32 cost_time = 4;
+    string debug_extra_info = 5;
+    uint32 res_version = 6;
+    bool is_ai_consider_ultra_skill = 7;
+    BattleEndStatus end_status = 8;
+    BattleStatistics stt = 9;
+    uint32 battle_id = 10;
+}
+
+message PVEBattleResultScRsp {
+    uint32 retcode = 1;
+    uint32 stage_id = 2;
+    uint32 cur_finish_challenge = 3;
+    ItemList drop_data = 4;
+    uint32 avatar_exp_reward = 5;
+    string bin_ver = 6;
+    string res_ver = 7;
+    uint32 battle_id = 8;
+    BattleEndStatus end_status = 9;
+    ItemList extra_drop_data = 10;
+    bool check_identical = 11;
+    uint32 event_id = 12;
+    uint32 mismatch_turn_count = 13;
+}
+
+message QuitBattleCsReq {
+    
+}
+
+message QuitBattleScRsp {
+    uint32 retcode = 1;
+}
+
+message GetCurBattleInfoCsReq {
+    
+}
+
+message GetCurBattleInfoScRsp {
+    uint32 retcode = 1;
+    uint32 stage_id = 2;
+    uint32 logic_random_seed = 3;
+    repeated BattleAvatar avatar_list = 4;
+    SceneBattleInfo battle_info = 5;
+    BattleEndStatus last_end_status = 6;
+    uint32 last_event_id = 7;
+}
+
+message SyncClientResVersionCsReq {
+    uint32 res_version = 1;
+}
+
+message SyncClientResVersionScRsp {
+    uint32 retcode = 1;
+    uint32 res_version = 2;
+}
+
+message QuitBattleScNotify {
+    
+}
+
+enum CmdBattleType {
+    CmdBattleTypeNone = 0;
+    CmdPVEBattleResultCsReq = 101;
+    CmdPVEBattleResultScRsp = 102;
+    CmdQuitBattleCsReq = 103;
+    CmdQuitBattleScRsp = 104;
+    CmdGetCurBattleInfoCsReq = 105;
+    CmdGetCurBattleInfoScRsp = 106;
+    CmdSyncClientResVersionCsReq = 107;
+    CmdSyncClientResVersionScRsp = 108;
+    CmdQuitBattleScNotify = 109;
+}

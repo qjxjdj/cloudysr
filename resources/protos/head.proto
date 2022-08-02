@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package proto;
+
+message PacketHead {
+    uint32 packet_id = 1;
+    uint32 sign_type = 2;
+    uint32 sign = 3;
+    uint32 user_id = 4;
+    uint32 src_addr = 5;
+    uint32 dst_addr = 6;
+    uint32 dispatch_type = 7;
+    uint32 server_type = 8;
+    uint32 dispatch_key = 9;
+    uint32 user_session_id = 10;
+    uint32 id = 11;
+    uint32 coroutine_id = 12;
+    uint32 hop_cnt = 13;
+}
+
+enum DispatchType {
+    DISPATCH_TYPE_NONE = 0;
+    DISPATCH_TYPE_BY_ADDR = 1;
+    DISPATCH_TYPE_BY_MOD = 2;
+    DISPATCH_TYPE_BY_RAND = 3;
+    DISPATCH_TYPE_BY_CHASH = 4;
+    DISPATCH_TYPE_BY_STICKY_SESSION = 5;
+    DISPATCH_TYPE_BY_OBJECT = 6;
+}

@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message Tutorial {
+    uint32 id = 1;
+    TutorialStatus status = 2;
+}
+
+message TutorialGuide {
+    uint32 id = 1;
+    TutorialStatus status = 2;
+}
+
+message GetTutorialCsReq {
+    
+}
+
+message GetTutorialScRsp {
+    uint32 retcode = 1;
+    repeated Tutorial tutorial_list = 2;
+}
+
+message GetTutorialGuideCsReq {
+    
+}
+
+message GetTutorialGuideScRsp {
+    uint32 retcode = 1;
+    repeated TutorialGuide tutorial_guide_list = 2;
+}
+
+message UnlockTutorialCsReq {
+    uint32 tutorial_id = 1;
+}
+
+message UnlockTutorialScRsp {
+    uint32 retcode = 1;
+    Tutorial tutorial = 2;
+}
+
+message UnlockTutorialGuideCsReq {
+    uint32 group_id = 1;
+}
+
+message UnlockTutorialGuideScRsp {
+    uint32 retcode = 1;
+    TutorialGuide tutorial_guide = 2;
+}
+
+message FinishTutorialCsReq {
+    uint32 tutorial_id = 1;
+}
+
+message FinishTutorialScRsp {
+    uint32 retcode = 1;
+    Tutorial tutorial = 2;
+}
+
+message FinishTutorialGuideCsReq {
+    uint32 group_id = 1;
+}
+
+message FinishTutorialGuideScRsp {
+    uint32 retcode = 1;
+    TutorialGuide tutorial_guide = 2;
+    ItemList reward = 3;
+}
+
+enum CmdTutorialType {
+    CmdTutorialTypeNone = 0;
+    CmdGetTutorialCsReq = 1601;
+    CmdGetTutorialScRsp = 1602;
+    CmdGetTutorialGuideCsReq = 1603;
+    CmdGetTutorialGuideScRsp = 1604;
+    CmdUnlockTutorialCsReq = 1605;
+    CmdUnlockTutorialScRsp = 1606;
+    CmdUnlockTutorialGuideCsReq = 1607;
+    CmdUnlockTutorialGuideScRsp = 1608;
+    CmdFinishTutorialCsReq = 1609;
+    CmdFinishTutorialScRsp = 1610;
+    CmdFinishTutorialGuideCsReq = 1611;
+    CmdFinishTutorialGuideScRsp = 1612;
+}
+
+enum TutorialStatus {
+    TUTORIAL_NONE = 0;
+    TUTORIAL_UNLOCK = 1;
+    TUTORIAL_FINISH = 2;
+}

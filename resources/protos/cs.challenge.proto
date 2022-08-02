@@ -1,0 +1,120 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+import "cs.maze.proto";
+import "cs.lineup.proto";
+
+message Challenge {
+    uint32 challenge_id = 1;
+    uint32 stars = 2;
+    uint32 taken_reward = 3;
+}
+
+message GetChallengeCsReq {
+    
+}
+
+message GetChallengeScRsp {
+    uint32 retcode = 1;
+    repeated Challenge challenge_list = 2;
+}
+
+message StartChallengeCsReq {
+    uint32 challenge_id = 1;
+}
+
+message StartChallengeScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+    CurChallenge cur_challenge = 3;
+}
+
+message LeaveChallengeCsReq {
+    
+}
+
+message LeaveChallengeScRsp {
+    uint32 retcode = 1;
+    Maze maze = 2;
+}
+
+message ChallengeSettleNotify {
+    uint32 challenge_id = 1;
+    bool is_win = 2;
+    ItemList reward = 3;
+    uint32 stars = 4;
+}
+
+message FinishChallengeCsReq {
+    uint32 challenge_id = 1;
+}
+
+message FinishChallengeScRsp {
+    uint32 retcode = 1;
+}
+
+message KillMonster {
+    uint32 monster_id = 1;
+    uint32 kill_num = 2;
+}
+
+message CurChallenge {
+    uint32 challenge_id = 1;
+    uint32 rounds = 2;
+    ChallengeStatus status = 3;
+    ExtraLineupType extra_lineup_type = 4;
+    repeated KillMonster kill_monster_list = 5;
+    uint32 dead_avatar_num = 6;
+}
+
+message GetCurChallengeCsReq {
+    
+}
+
+message GetCurChallengeScRsp {
+    uint32 retcode = 1;
+    CurChallenge cur_challenge = 2;
+}
+
+message ChallengeLineupNotify {
+    ExtraLineupType extra_lineup_type = 1;
+}
+
+message TakeChallengeTargetRewardCsReq {
+    uint32 challenge_id = 1;
+    repeated uint32 index_list = 2;
+}
+
+message TakeChallengeTargetRewardScRsp {
+    uint32 retcode = 1;
+    uint32 challenge_id = 2;
+    repeated uint32 taken_index_list = 3;
+    ItemList reward = 4;
+}
+
+enum CmdChallengeType {
+    CmdChallengeTypeNone = 0;
+    CmdGetChallengeCsReq = 1701;
+    CmdGetChallengeScRsp = 1702;
+    CmdStartChallengeCsReq = 1703;
+    CmdStartChallengeScRsp = 1704;
+    CmdLeaveChallengeCsReq = 1705;
+    CmdLeaveChallengeScRsp = 1706;
+    CmdChallengeSettleNotify = 1707;
+    CmdFinishChallengeCsReq = 1708;
+    CmdFinishChallengeScRsp = 1709;
+    CmdGetCurChallengeCsReq = 1710;
+    CmdGetCurChallengeScRsp = 1711;
+    CmdChallengeLineupNotify = 1712;
+    CmdTakeChallengeTargetRewardCsReq = 1713;
+    CmdTakeChallengeTargetRewardScRsp = 1714;
+}
+
+enum ChallengeStatus {
+    CHALLENGE_UNKNOWN = 0;
+    CHALLENGE_DOING = 1;
+    CHALLENGE_FINISH = 2;
+    CHALLENGE_FAILED = 3;
+}

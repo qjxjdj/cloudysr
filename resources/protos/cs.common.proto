@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.define.proto";
+import "common.gamecore.proto";
+
+message Item {
+    uint32 item_id = 1;
+    uint32 num = 2;
+    uint32 level = 3;
+    uint32 rank = 4;
+    uint32 promotion = 5;
+    uint32 unique_id = 6;
+}
+
+message ItemList {
+    repeated Item item_list = 1;
+}
+
+message PileItem {
+    uint32 item_id = 1;
+    uint32 item_num = 2;
+}
+
+message ItemCost {
+    oneof Item {
+        PileItem pile_item = 1;
+        uint32 equipment_unique_id = 2;
+        uint32 relic_unique_id = 3;
+    }
+}
+
+message ItemCostData {
+    repeated ItemCost item_list = 1;
+}
+
+message SceneMonsterWave {
+    repeated uint32 monster_id_list = 1;
+    repeated ItemList drop_list = 2;
+}
+
+message SceneBattleInfo {
+    uint32 logic_random_seed = 1;
+    uint32 stage_id = 2;
+    repeated SceneMonsterWave monster_wave_list = 3;
+    repeated BattleAvatar battle_avatar_list = 4;
+    repeated BattleBuff buff_list = 5;
+    uint32 battle_id = 6;
+    repeated HeroPath hero_path_list = 7;
+    uint32 rounds_limit = 8;
+}
+
+enum MissionStatus {
+    MISSION_NONE = 0;
+    MISSION_DOING = 1;
+    MISSION_FINISH = 2;
+    MISSION_PREPARED = 3;
+}
+
+enum MessageSectionStatus {
+    MESSAGE_SECTION_NONE = 0;
+    MESSAGE_SECTION_DOING = 1;
+    MESSAGE_SECTION_FINISH = 2;
+}
+
+enum MessageGroupStatus {
+    MESSAGE_GROUP_NONE = 0;
+    MESSAGE_GROUP_DOING = 1;
+    MESSAGE_GROUP_FINISH = 2;
+}

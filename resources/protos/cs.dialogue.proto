@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+import "cs.rogue.proto";
+
+message DialogueEvent {
+    uint32 dialogue_group_id = 1;
+    repeated uint32 dialogue_event_id_list = 2;
+}
+
+message DialogueResultInfo {
+    oneof result {
+        ItemList item_result = 1;
+        RogueBuffList rogue_buff_result = 2;
+    }
+}
+
+message GetDialogueEventDataCsReq {
+    
+}
+
+message GetDialogueEventDataScRsp {
+    uint32 retcode = 1;
+    repeated DialogueEvent dialogue_event_list = 2;
+}
+
+message SelectDialogueEventCsReq {
+    uint32 dialogue_group_id = 1;
+    uint32 dialogue_event_id = 2;
+}
+
+message SelectDialogueEventScRsp {
+    uint32 retcode = 1;
+    uint32 dialogue_group_id = 2;
+    uint32 dialogue_event_id = 3;
+    DialogueResultInfo result_info = 4;
+}
+
+message SyncDialogueEventDataScNotify {
+    repeated DialogueEvent dialogue_event_list = 1;
+}
+
+enum CmdDialogueType {
+    CmdDialogueTypeNone = 0;
+    CmdGetDialogueEventDataCsReq = 2401;
+    CmdGetDialogueEventDataScRsp = 2402;
+    CmdSelectDialogueEventCsReq = 2403;
+    CmdSelectDialogueEventScRsp = 2404;
+    CmdSyncDialogueEventDataScNotify = 2405;
+}

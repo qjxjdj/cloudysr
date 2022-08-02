@@ -1,0 +1,318 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.define.proto";
+
+message BattleOp {
+    uint32 turn_counter = 1;
+    uint32 state = 2;
+    uint32 action_entity_id = 3;
+    uint32 target_entity_id = 4;
+    uint32 op_type = 5;
+    uint32 skill_index = 6;
+    uint32 operation_counter = 7;
+}
+
+message BattleEquipment {
+    uint32 id = 1;
+    uint32 level = 2;
+    uint32 promotion = 3;
+    uint32 rank = 4;
+}
+
+message BattleRelic {
+    uint32 id = 1;
+    uint32 level = 2;
+    uint32 main_affix_id = 3;
+    repeated RelicAffix sub_affix_list = 4;
+    uint32 unique_id = 5;
+}
+
+message AvatarSkillTree {
+    uint32 point_id = 1;
+    uint32 level = 2;
+}
+
+message RelicAffix {
+    uint32 affix_id = 1;
+    uint32 cnt = 2;
+    uint32 step = 3;
+}
+
+message BattleAvatar {
+    AvatarType avatar_type = 1;
+    uint32 id = 2;
+    uint32 level = 3;
+    uint32 rank = 4;
+    uint32 index = 5;
+    repeated AvatarSkillTree skilltree_list = 6;
+    repeated BattleEquipment equipment_list = 7;
+    uint32 hp = 8;
+    uint32 sp = 9;
+    uint32 promotion = 10;
+    repeated BattleRelic relic_list = 11;
+}
+
+message BattleMonsterWave {
+    repeated uint32 monster_id_list = 1;
+}
+
+message BattleBuff {
+    uint32 id = 1;
+    uint32 level = 2;
+    uint32 owner_index = 3;
+    uint32 wave_flag = 4;
+    repeated uint32 target_index_list = 5;
+    map<string, float> dynamic_values = 6;
+}
+
+message BattleLineup {
+    repeated BattleAvatar avatar_list = 1;
+    repeated BattleMonsterWave monster_wave_list = 2;
+    repeated BattleBuff buff_list = 3;
+    repeated HeroPath hero_path_list = 4;
+    repeated uint32 battle_scoring_list = 5;
+}
+
+message ClientTurnSnapshot {
+    uint32 turn_counter = 1;
+    uint32 random_counter = 2;
+    uint32 anim_event_counter = 3;
+    repeated CharacterSnapshot snapshot_list = 4;
+    repeated AnimEventSnapshot anim_event_list = 5;
+}
+
+message GamecoreConfig {
+    bool is_skip_verify = 1;
+    uint32 max_turn_cnt = 2;
+    bool is_auto_fight = 3;
+    string csv_path = 4;
+}
+
+message BattleBuffMsg {
+    repeated uint32 buff_id_list = 1;
+    repeated uint32 buff_index_list = 2;
+    repeated uint32 buff_level_list = 3;
+    repeated uint32 buff_flag_list = 4;
+}
+
+message BattleReplay {
+    uint32 version = 1;
+    uint32 logic_random_seed = 2;
+    uint32 stage_id = 3;
+    BattleLineup lineup = 4;
+    repeated BattleOp op_list = 5;
+    bytes turn_snapshot_hash = 6;
+    uint32 maze_plane_id = 7;
+    repeated uint32 extra_ability_list = 8;
+    bool is_ai_consider_ultra_skill = 9;
+    BattleCheckStrategyType check_strategy = 10;
+    BattleModuleType battle_module_type = 11;
+    repeated ClientTurnSnapshot turn_snapshot_list = 21;
+    string local_level_path = 22;
+    string debug_extra_info = 23;
+    GamecoreConfig config = 24;
+    bytes game_core_log_encode = 26;
+    uint32 rounds_limit = 27;
+    repeated BattleReplayStringHash log_string_hash = 28;
+    uint32 plane_id = 29;
+    uint32 floor_id = 30;
+    uint32 battle_area_group_id = 31;
+    uint32 battle_area_id = 32;
+}
+
+message BattleReplayStringHash {
+    int32 hash = 1;
+    string value = 2;
+}
+
+message AvatarProperty {
+    double max_hp = 1;
+    double attack = 2;
+    double defence = 3;
+    double speed = 4;
+    double left_hp = 5;
+    double left_sp = 6;
+    double max_sp = 7;
+}
+
+message EquipmentProperty {
+    uint32 id = 1;
+    uint32 rank = 2;
+    uint32 promotion = 3;
+    uint32 level = 4;
+}
+
+message AttackDamageProperty {
+    string attack_type = 1;
+    double damage = 2;
+}
+
+message SkillUseProperty {
+    uint32 skill_id = 1;
+    string skill_type = 2;
+    uint32 skill_level = 3;
+    uint32 skill_use_count = 4;
+}
+
+message SpAddSource {
+    string source = 1;
+    uint32 sp_add = 2;
+}
+
+message AvatarBattleInfo {
+    AvatarType avatar_type = 1;
+    uint32 id = 2;
+    uint32 avatar_level = 3;
+    uint32 avatar_rank = 4;
+    uint32 avatar_promotion = 5;
+    AvatarProperty avatar_status = 6;
+    repeated AvatarSkillTree avatar_skill = 7;
+    repeated EquipmentProperty avatar_equipment = 8;
+    uint32 total_turns = 9;
+    double total_damage = 10;
+    double total_heal = 11;
+    double total_damage_taken = 12;
+    double total_hp_recover = 13;
+    double total_sp_cost = 14;
+    uint32 stage_id = 15;
+    uint32 stage_type = 16;
+    double total_break_damage = 17;
+    repeated AttackDamageProperty attack_type_damage = 18;
+    repeated AttackDamageProperty attack_type_break_damage = 19;
+    repeated AttackDamageProperty attack_type_max_damage = 20;
+    repeated SkillUseProperty skill_times = 21;
+    double delay_cumulate = 22;
+    uint32 total_sp_add = 23;
+    repeated SpAddSource sp_add_source = 24;
+    uint32 total_bp_cost = 25;
+    uint32 die_times = 26;
+    uint32 revive_times = 27;
+    uint32 break_times = 28;
+    uint32 extra_turns = 29;
+    double total_shield = 30;
+    double total_shield_taken = 31;
+    double total_shield_damage = 32;
+    AvatarProperty initial_status = 33;
+    repeated BattleRelic relics = 34;
+}
+
+message MonsterProperty {
+    double max_hp = 1;
+    double attack = 2;
+    double defence = 3;
+    double shield = 4;
+    double speed = 5;
+    double left_hp = 6;
+}
+
+message MonsterBattleInfo {
+    uint32 entity_id = 1;
+    uint32 monster_id = 2;
+    uint32 monster_template_id = 3;
+    uint32 monster_level = 4;
+    MonsterProperty monster_status = 5;
+    uint32 total_turns = 6;
+    double total_damage = 7;
+    double total_heal = 8;
+    double total_damage_taken = 9;
+    double total_stance_damage_taken = 10;
+    double total_hp_recover = 11;
+    uint32 stage_id = 12;
+    uint32 battle_id = 13;
+    uint32 monster_type = 14;
+    repeated AttackDamageProperty attack_type_damage = 15;
+    repeated SkillUseProperty skill_times = 16;
+    uint32 stage_type = 17;
+    double total_break_damage_taken = 18;
+    double delay_cumulate = 19;
+    DeathSource death_source = 20;
+    uint32 wave = 21;
+    int32 index_in_wave = 22;
+    uint32 phase = 23;
+    uint32 max_phase = 24;
+    BattleTag battle_tag = 25;
+}
+
+message BattleStatistics {
+    uint32 total_battle_turns = 1;
+    uint32 total_auto_turns = 2;
+    repeated uint32 avatar_id_list = 3;
+    uint32 ultra_cnt = 4;
+    double total_delay_cumulate = 5;
+    double cost_time = 6;
+    repeated AvatarBattleInfo avatar_battle_list = 7;
+    repeated MonsterBattleInfo monster_battle_list = 8;
+    uint32 round_cnt = 9;
+    uint32 cocoon_dead_wave = 10;
+    uint32 avatar_battle_turns = 11;
+    uint32 monster_battle_turns = 12;
+    map<string, float> custom_values = 13;
+    uint32 challenge_score = 14;
+    repeated uint32 battle_challenge_list = 15;
+}
+
+message HeroPath {
+    uint32 hero_path_type = 1;
+    uint32 level = 2;
+    uint32 exp = 3;
+}
+
+message BattleResult {
+    BattleCheckResultType retcode = 1;
+    BattleEndStatus end_status = 2;
+    BattleStatistics stt = 3;
+    bytes game_core_log_encode = 4;
+    map<string, uint32> tags = 5;
+    uint32 mismatch_turn_count = 6;
+}
+
+message CharacterSnapshot {
+    uint32 runtime_id = 1;
+    repeated uint64 properties = 2;
+}
+
+message AnimEventSnapshot {
+    string event_name = 1;
+    uint32 count = 2;
+}
+
+enum BattleCheckStrategyType {
+    BATTLE_CHECK_STRATEGY_IDENTICAL = 0;
+    BATTLE_CHECK_STRATEGY_SERVER = 1;
+    BATTLE_CHECK_STRATEGY_CLIENT = 2;
+}
+
+enum BattleCheckResultType {
+    BATTLE_CHECK_RESULT_SUCC = 0;
+    BATTLE_CHECK_RESULT_FAIL = 1;
+    BATTLE_CHECK_RESULT_PASS = 2;
+}
+
+enum BattleModuleType {
+    BATTLE_MODULE_MAZE = 0;
+    BATTLE_MODULE_CHALLENGE = 1;
+    BATTLE_MODULE_COCOON = 2;
+    BATTLE_MODULE_ROGUE = 3;
+    BATTLE_MODULE_CHALLENGE_ACTIVITY = 4;
+}
+
+enum DeathSource {
+    UNKNOWN = 0;
+    KILLED_BY_OTHERS = 1;
+    KILLED_BY_SELF = 2;
+    ESCAPE = 3;
+}
+
+enum BattleTag {
+    TAG_NONE = 0;
+    TAG_HIDE_NPC_MONSTER = 1;
+}
+
+enum BattleEndStatus {
+    BATTLE_END_NONE = 0;
+    BATTLE_END_WIN = 1;
+    BATTLE_END_LOSE = 2;
+    BATTLE_END_QUIT = 3;
+}

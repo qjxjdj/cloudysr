@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package proto;
+
+import "cs.common.proto";
+
+message StartRaidCsReq {
+    uint32 prop_entity_id = 1;
+    uint32 raid_id = 2;
+    uint32 world_level = 3;
+    repeated uint32 avatar_list = 4;
+}
+
+message StartRaidScRsp {
+    uint32 retcode = 1;
+}
+
+message LeaveRaidCsReq {
+    uint32 raid_id = 1;
+}
+
+message LeaveRaidScRsp {
+    uint32 retcode = 1;
+}
+
+message RaidInfoNotify {
+    uint32 raid_id = 1;
+    uint32 world_level = 2;
+    RaidStatus status = 3;
+    ItemList item_list = 4;
+}
+
+message ChallengeRaid {
+    uint32 raid_id = 1;
+    uint32 max_score = 2;
+}
+
+message GetChallengeRaidInfoCsReq {
+    
+}
+
+message GetChallengeRaidInfoScRsp {
+    uint32 retcode = 1;
+    repeated ChallengeRaid challenge_raid_list = 2;
+    repeated uint32 taken_reward_id_list = 3;
+}
+
+message TakeChallengeRaidRewardCsReq {
+    uint32 reward_id = 1;
+}
+
+message TakeChallengeRaidRewardScRsp {
+    uint32 retcode = 1;
+    uint32 reward_id = 2;
+    ItemList reward = 3;
+}
+
+message ChallengeRaidNotify {
+    ChallengeRaid challenge_raid = 1;
+}
+
+enum CmdRaidType {
+    CmdRaidTypeNone = 0;
+    CmdStartRaidCsReq = 2201;
+    CmdStartRaidScRsp = 2202;
+    CmdLeaveRaidCsReq = 2203;
+    CmdLeaveRaidScRsp = 2204;
+    CmdRaidInfoNotify = 2205;
+    CmdGetChallengeRaidInfoCsReq = 2206;
+    CmdGetChallengeRaidInfoScRsp = 2207;
+    CmdTakeChallengeRaidRewardCsReq = 2208;
+    CmdTakeChallengeRaidRewardScRsp = 2209;
+    CmdChallengeRaidNotify = 2210;
+}
+
+enum RaidStatus {
+    RAID_STATUS_NONE = 0;
+    RAID_STATUS_DOING = 1;
+    RAID_STATUS_FINISH = 2;
+    RAID_STATUS_FAILED = 3;
+}

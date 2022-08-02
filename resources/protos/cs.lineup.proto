@@ -1,0 +1,194 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.define.proto";
+
+message GetStageLineupCsReq {
+    
+}
+
+message StageLineup {
+    uint32 stage_type = 1;
+    uint32 lineup_index = 2;
+}
+
+message GetStageLineupScRsp {
+    uint32 retcode = 1;
+    repeated StageLineup stage_lineup_list = 2;
+}
+
+message LineupAvatar {
+    uint32 slot = 1;
+    AvatarType avatar_type = 2;
+    uint32 id = 3;
+    uint32 hp = 4;
+    uint32 sp = 5;
+    uint32 satiety = 6;
+}
+
+message LineupInfo {
+    repeated LineupAvatar avatar_list = 1;
+    bool is_virtual = 2;
+    uint32 plane_id = 3;
+    uint32 mp = 4;
+    uint32 leader_slot = 5;
+    uint32 index = 6;
+    ExtraLineupType extra_lineup_type = 7;
+    string name = 8;
+}
+
+message GetCurLineupDataCsReq {
+    
+}
+
+message GetCurLineupDataScRsp {
+    uint32 retcode = 1;
+    LineupInfo lineup = 2;
+}
+
+message JoinLineupCsReq {
+    uint32 base_avatar_id = 1;
+    bool is_virtual = 2;
+    uint32 plane_id = 3;
+    uint32 slot = 4;
+    uint32 index = 5;
+    ExtraLineupType extra_lineup_type = 6;
+}
+
+message JoinLineupScRsp {
+    uint32 retcode = 1;
+}
+
+message QuitLineupCsReq {
+    uint32 base_avatar_id = 1;
+    bool is_virtual = 2;
+    uint32 plane_id = 3;
+    uint32 index = 4;
+    ExtraLineupType extra_lineup_type = 5;
+}
+
+message QuitLineupScRsp {
+    uint32 retcode = 1;
+    uint32 base_avatar_id = 2;
+    bool is_mainline = 3;
+    uint32 plane_id = 4;
+    bool is_virtual = 5;
+}
+
+message SwapLineupCsReq {
+    bool is_virtual = 1;
+    uint32 plane_id = 2;
+    uint32 src_slot = 3;
+    uint32 dst_slot = 4;
+    uint32 index = 5;
+    ExtraLineupType extra_lineup_type = 6;
+}
+
+message SwapLineupScRsp {
+    uint32 retcode = 1;
+}
+
+message SyncLineupNotify {
+    LineupInfo lineup = 1;
+    repeated SyncLineupReason reason_list = 2;
+}
+
+message GetLineupAvatarDataCsReq {
+    
+}
+
+message LineupAvatarData {
+    AvatarType avatar_type = 1;
+    uint32 id = 2;
+    uint32 hp = 3;
+}
+
+message GetLineupAvatarDataScRsp {
+    uint32 retcode = 1;
+    repeated LineupAvatarData avatar_data_list = 2;
+}
+
+message ChangeLineupLeaderCsReq {
+    uint32 slot = 1;
+}
+
+message ChangeLineupLeaderScRsp {
+    uint32 retcode = 1;
+    uint32 slot = 2;
+}
+
+message SwitchLineupIndexCsReq {
+    uint32 index = 1;
+}
+
+message SwitchLineupIndexScRsp {
+    uint32 retcode = 1;
+    uint32 index = 2;
+}
+
+message SetLineupNameCsReq {
+    string name = 1;
+    uint32 index = 2;
+}
+
+message SetLineupNameScRsp {
+    uint32 retcode = 1;
+    string name = 2;
+    uint32 index = 3;
+}
+
+message GetAllLineupDataCsReq {
+    
+}
+
+message GetAllLineupDataScRsp {
+    uint32 retcode = 1;
+    uint32 cur_index = 2;
+    repeated LineupInfo lineup_list = 3;
+}
+
+message VirtualLineupDestroyNotify {
+    uint32 plane_id = 1;
+}
+
+enum CmdLineupType {
+    CmdLineupTypeNone = 0;
+    CmdGetStageLineupCsReq = 701;
+    CmdGetStageLineupScRsp = 702;
+    CmdGetCurLineupDataCsReq = 703;
+    CmdGetCurLineupDataScRsp = 704;
+    CmdJoinLineupCsReq = 705;
+    CmdJoinLineupScRsp = 706;
+    CmdQuitLineupCsReq = 707;
+    CmdQuitLineupScRsp = 708;
+    CmdSwapLineupCsReq = 709;
+    CmdSwapLineupScRsp = 710;
+    CmdSyncLineupNotify = 711;
+    CmdGetLineupAvatarDataCsReq = 712;
+    CmdGetLineupAvatarDataScRsp = 713;
+    CmdChangeLineupLeaderCsReq = 714;
+    CmdChangeLineupLeaderScRsp = 715;
+    CmdSwitchLineupIndexCsReq = 716;
+    CmdSwitchLineupIndexScRsp = 717;
+    CmdSetLineupNameCsReq = 718;
+    CmdSetLineupNameScRsp = 719;
+    CmdGetAllLineupDataCsReq = 720;
+    CmdGetAllLineupDataScRsp = 721;
+    CmdVirtualLineupDestroyNotify = 722;
+}
+
+enum ExtraLineupType {
+    LINEUP_NONE = 0;
+    LINEUP_CHALLENGE = 1;
+    LINEUP_ROGUE = 2;
+    LINEUP_CHALLENGE_2 = 3;
+    LINEUP_CHALLENGE_3 = 4;
+    LINEUP_ROGUE_CHALLENGE = 5;
+}
+
+enum SyncLineupReason {
+    SYNC_REASON_NONE = 0;
+    SYNC_REASON_MP_ADD = 1;
+    SYNC_REASON_HP_ADD = 2;
+}

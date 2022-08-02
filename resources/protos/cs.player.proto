@@ -1,0 +1,376 @@
+syntax = "proto3";
+
+package proto;
+
+import "common.define.proto";
+import "cs.common.proto";
+import "common.gamecore.proto";
+
+message PlayerLoginCsReq {
+    PlatformType platform = 1;
+    string cps = 2;
+    string device_uuid = 3;
+    string device_info = 4;
+    string system_info = 5;
+    string client_version = 6;
+    LanguageType language = 7;
+    uint32 last_server_packet_id = 8;
+    string check_sum_1 = 9;
+    string check_sum_2 = 10;
+    string signature = 11;
+    string resolution = 12;
+    uint64 login_random = 13;
+    string system_language = 14;
+    uint32 res_version = 15;
+    string client_time_zone = 16;
+}
+
+message PlayerLoginScRsp {
+    uint32 retcode = 1;
+    bool is_new_player = 2;
+    PlayerBasicInfo basic_info = 3;
+    uint64 server_timestamp_ms = 4;
+    uint32 stamina = 5;
+    bool is_relay = 6;
+    uint64 login_random = 7;
+    int32 cur_timezone = 8;
+    string bs_bin_version = 10;
+}
+
+message PlayerLogoutCsReq {
+    
+}
+
+message PlayerGetTokenCsReq {
+    uint32 channel_id = 1;
+    string account_uid = 2;
+    string token = 3;
+    uint32 uid = 4;
+    string device = 5;
+}
+
+message PlayerGetTokenScRsp {
+    uint32 retcode = 1;
+    uint32 uid = 2;
+    BlackInfo black_info = 3;
+    string msg = 4;
+    uint64 secret_key_seed = 5;
+}
+
+message PlayerKeepAliveNotify {
+    ClientUploadData data = 1;
+}
+
+message GmTalkScNotify {
+    string msg = 1;
+}
+
+message PlayerKickOutScNotify {
+    KickType kick_type = 1;
+    enum KickType {
+        KICK_SQUEEZED = 0;
+        KICK_BLACK = 1;
+        KICK_CHANGE_PWD = 2;
+    }
+    
+    BlackInfo black_info = 2;
+}
+
+message GmTalkCsReq {
+    string msg = 1;
+}
+
+message GmTalkScRsp {
+    uint32 retcode = 1;
+    string retmsg = 2;
+}
+
+message GetBasicInfoCsReq {
+    
+}
+
+message GetBasicInfoScRsp {
+    uint32 retcode = 1;
+    uint32 next_recover_time = 2;
+    uint32 exchange_times = 3;
+    uint32 week_cocoon_finished_count = 4;
+    uint32 cur_day = 5;
+}
+
+message ExchangeStaminaCsReq {
+    
+}
+
+message ExchangeStaminaScRsp {
+    uint32 retcode = 1;
+    uint32 stamina_add = 2;
+    repeated ItemCost item_cost_list = 3;
+    uint32 last_recover_time = 4;
+    uint32 exchange_times = 5;
+}
+
+message GetAuthkeyCsReq {
+    string auth_appid = 1;
+    uint32 sign_type = 2;
+    uint32 authkey_ver = 3;
+}
+
+message GetAuthkeyScRsp {
+    uint32 retcode = 1;
+    string authkey = 2;
+    string auth_appid = 3;
+    uint32 sign_type = 4;
+    uint32 authkey_ver = 5;
+}
+
+message RegionStopScNotify {
+    uint32 stop_begin_time = 1;
+    uint32 stop_end_time = 2;
+}
+
+message AntiAddictScNotify {
+    uint32 msg_type = 1;
+    string msg = 2;
+    string level = 3;
+}
+
+message SetNicknameCsReq {
+    string nickname = 1;
+    bool is_modify = 2;
+}
+
+message SetNicknameScRsp {
+    uint32 retcode = 1;
+    bool is_modify = 2;
+}
+
+message GetLevelRewardTakenListCsReq {
+    
+}
+
+message GetLevelRewardTakenListScRsp {
+    uint32 retcode = 1;
+    repeated uint32 taken_level_list = 2;
+}
+
+message GetLevelRewardCsReq {
+    uint32 level = 1;
+}
+
+message GetLevelRewardScRsp {
+    uint32 retcode = 1;
+    ItemList reward = 2;
+}
+
+message SyncTimeCsReq {
+    uint64 client_time_ms = 1;
+}
+
+message SyncTimeScRsp {
+    uint32 retcode = 1;
+    uint64 client_time_ms = 2;
+    uint64 server_time_ms = 3;
+    ClientDownloadData download_data = 4;
+}
+
+message SetLanguageCsReq {
+    LanguageType language = 1;
+}
+
+message SetLanguageScRsp {
+    uint32 retcode = 1;
+    LanguageType language = 2;
+}
+
+message AnnounceData {
+    uint32 config_id = 1;
+    uint32 begin_time = 2;
+    uint32 end_time = 3;
+    string center_system_text = 4;
+    string count_down_text = 5;
+    string dungeon_confirm_text = 6;
+    uint32 center_system_frequency = 7;
+    uint32 count_down_frequency = 8;
+    bool is_center_system_last_5_every_minutes = 9;
+}
+
+message ServerAnnounceNotify {
+    repeated AnnounceData announce_data_list = 1;
+}
+
+message Gateserver {
+    uint32 retcode = 1;
+    string msg = 2;
+    string region_name = 3;
+    string ip = 4;
+    uint32 port = 5;
+    uint32 stop_begin_time = 6;
+    uint32 stop_end_time = 7;
+    bool data_use_asset_boundle = 8;
+    bool res_use_asset_boundle = 9;
+    string asset_bundle_url = 10;
+    string ex_resource_url = 11;
+    string lua_url = 12;
+    uint32 asb_relogin = 13;
+    string asb_memo = 14;
+    uint32 design_data_relogin = 15;
+    string design_data_memo = 16;
+    string client_secret_key = 17;
+    string record_game_object_user_data = 18;
+    bool use_tcp = 19;
+    string custom_service_url = 20;
+    string operation_feedback_url = 21;
+    string privacy_in_game_url = 22;
+    bool client_record_replay = 23;
+    string server_description = 24;
+}
+
+message SetHeroBasicTypeCsReq {
+    HeroBasicType basic_type = 1;
+}
+
+message SetHeroBasicTypeScRsp {
+    uint32 retcode = 1;
+    HeroBasicType basic_type = 2;
+}
+
+message GetHeroBasicTypeInfoCsReq {
+    
+}
+
+message HeroBasicTypeInfo {
+    HeroBasicType basic_type = 1;
+    uint32 rank = 2;
+    repeated AvatarSkillTree skill_tree_list = 3;
+}
+
+message GetHeroBasicTypeInfoScRsp {
+    uint32 retcode = 1;
+    Gender gender = 2;
+    HeroBasicType cur_basic_type = 3;
+    repeated HeroBasicTypeInfo basic_type_info_list = 4;
+    repeated HeroPath hero_path_list = 5;
+    bool is_gender_modified = 6;
+    bool is_player_info_modified = 7;
+}
+
+message GetHeroPathCsReq {
+    
+}
+
+message GetHeroPathScRsp {
+    uint32 retcode = 1;
+    repeated HeroPath hero_path_list = 2;
+}
+
+message HeroPathChangedNotify {
+    HeroPath hero_path = 1;
+}
+
+message SetGenderCsReq {
+    Gender gender = 1;
+}
+
+message SetGenderScRsp {
+    uint32 retcode = 1;
+    HeroBasicType cur_basic_type = 2;
+}
+
+message SetPlayerInfoCsReq {
+    string nickname = 1;
+    bool is_modify = 2;
+    Gender gender = 3;
+}
+
+message SetPlayerInfoScRsp {
+    uint32 retcode = 1;
+    HeroBasicType cur_basic_type = 2;
+    bool is_modify = 3;
+}
+
+message HeroBasicTypeChangedNotify {
+    HeroBasicType cur_basic_type = 1;
+}
+
+message QueryProductInfoCsReq {
+    
+}
+
+message Product {
+    string product_id = 1;
+    string price_tier = 2;
+}
+
+message QueryProductInfoScRsp {
+    uint32 retcode = 1;
+    repeated Product product_list = 2;
+}
+
+message ClientDownloadDataScNotify {
+    ClientDownloadData download_data = 1;
+}
+
+message UpdateFeatureSwitchScNotify {
+    repeated FeatureSwitchInfo switch_info_list = 1;
+}
+
+message DailyRefreshNotify {
+    uint32 cur_day = 1;
+}
+
+enum CmdPlayerType {
+    CmdPlayerTypeNone = 0;
+    CmdPlayerLoginCsReq = 1;
+    CmdPlayerLoginScRsp = 2;
+    CmdPlayerLogoutCsReq = 3;
+    CmdPlayerLogoutScRsp = 4;
+    CmdPlayerGetTokenCsReq = 5;
+    CmdPlayerGetTokenScRsp = 6;
+    CmdPlayerKeepAliveNotify = 7;
+    CmdGmTalkScNotify = 8;
+    CmdPlayerKickOutScNotify = 9;
+    CmdGmTalkCsReq = 10;
+    CmdGmTalkScRsp = 11;
+    CmdExchangeStaminaCsReq = 14;
+    CmdExchangeStaminaScRsp = 15;
+    CmdGetAuthkeyCsReq = 16;
+    CmdGetAuthkeyScRsp = 17;
+    CmdRegionStopScNotify = 18;
+    CmdAntiAddictScNotify = 19;
+    CmdSetNicknameCsReq = 20;
+    CmdSetNicknameScRsp = 21;
+    CmdGetLevelRewardTakenListCsReq = 22;
+    CmdGetLevelRewardTakenListScRsp = 23;
+    CmdGetLevelRewardCsReq = 24;
+    CmdGetLevelRewardScRsp = 25;
+    CmdSyncTimeCsReq = 26;
+    CmdSyncTimeScRsp = 27;
+    CmdSetLanguageCsReq = 28;
+    CmdSetLanguageScRsp = 29;
+    CmdServerAnnounceNotify = 30;
+    CmdSetHeroBasicTypeCsReq = 31;
+    CmdSetHeroBasicTypeScRsp = 32;
+    CmdGetHeroBasicTypeInfoCsReq = 33;
+    CmdGetHeroBasicTypeInfoScRsp = 34;
+    CmdGetHeroPathCsReq = 35;
+    CmdGetHeroPathScRsp = 36;
+    CmdHeroPathChangedNotify = 37;
+    CmdSetGenderCsReq = 38;
+    CmdSetGenderScRsp = 39;
+    CmdSetPlayerInfoCsReq = 40;
+    CmdSetPlayerInfoScRsp = 41;
+    CmdHeroBasicTypeChangedNotify = 42;
+    CmdQueryProductInfoCsReq = 43;
+    CmdQueryProductInfoScRsp = 44;
+    CmdClientDownloadDataScNotify = 45;
+    CmdUpdateFeatureSwitchScNotify = 46;
+    CmdGetBasicInfoCsReq = 47;
+    CmdGetBasicInfoScRsp = 48;
+    CmdDailyRefreshNotify = 49;
+}
+
+enum AuthkeySignType {
+    AUTHKEY_SIGN_TYPE_NONE = 0;
+    AUTHKEY_SIGN_TYPE_DEFAULT = 1;
+    AUTHKEY_SIGN_TYPE_RSA = 2;
+}
