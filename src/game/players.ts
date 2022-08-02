@@ -10,6 +10,7 @@ export class PlayerManager {
 }
 
 export class Player {
+    public curLineupIndex: number = 0;
 
     constructor(readonly session: Client, public basicInfo: PlayerBasicInfo, public avatars: Avatar[], public lineups: Lineup[]) {
     }

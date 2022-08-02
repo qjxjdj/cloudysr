@@ -44,6 +44,8 @@ export class AvatarHandler {
 
     public ChangeLineupLeaderCsReq(context: PacketContext<ChangeLineupLeaderCsReq>) {
         const rsp = ChangeLineupLeaderScRsp.create();
+        const lineup = context.player!.lineups[context.player!.curLineupIndex];
+        lineup.leaderSlot = context.request.slot!;
         rsp.retcode = 0;
         rsp.slot = context.request.slot!;
         context.send(ChangeLineupLeaderScRsp, rsp);

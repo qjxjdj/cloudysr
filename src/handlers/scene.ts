@@ -22,7 +22,7 @@ export class SceneHandler {
 
     public GetCurBattleInfoCsReq(context: PacketContext<GetCurBattleInfoCsReq>) {
         const rsp = GetCurBattleInfoScRsp.create();
-        const lineup = context.player!.lineups[0];
+        const lineup = context.player!.lineups[context.player!.curLineupIndex];
         rsp.retcode = 0;
         rsp.avatarList = lineup.toBattleAvatar();
         rsp.battleInfo = SceneBattleInfo.create();
@@ -36,8 +36,7 @@ export class SceneHandler {
     public GetCurLineupDataCsReq(context: PacketContext<GetCurLineupDataCsReq>) {
         const rsp = GetCurLineupDataScRsp.create();
         rsp.retcode = 0;
-        rsp.lineup = context.player!.lineups[0].toLineupInfo();
-        console.log(LineupInfo.toJsonString(context.player!.lineups[0].toLineupInfo()))
+        rsp.lineup = context.player!.lineups[context.player!.curLineupIndex].toLineupInfo();
         context.send(GetCurLineupDataScRsp, rsp);
     };
 
